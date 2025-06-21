@@ -6,7 +6,7 @@ data:
   Caddyfile: |
     :80 {
       basicauth {
-        matt JDJhJDE0JGtiLkplZ295YTdJV2pIMzRkYVlTWmVvNmxmbGlaZnNvaC9FWk5ZWjU4MzNCZjgwOEtDOUdt
+        amy JDJhJDE0JGtiLkplZ295YTdJV2pIMzRkYVlTWmVvNmxmbGlaZnNvaC9FWk5ZWjU4MzNCZjgwOEtDOUdt
       }
       reverse_proxy 192.168.68.68:80 {
         trusted_proxies private_ranges
