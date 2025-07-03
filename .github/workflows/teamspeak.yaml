@@ -27,10 +27,10 @@ jobs:
           serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
           serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
 
-      - name: Install persistent volume for teamspeak
+      - name: Install persistent volume for teamspeak-old
         run: |
           helm upgrade --install --wait --atomic --debug \
-            teamspeak-persistentvolume . \
+            teamspeak-old-persistentvolume . \
             --namespace default \
             --set name=teamspeak \
             --set disk.capacity=10Gi \
@@ -38,6 +38,26 @@ jobs:
             --set fileShare.name=teamspeak \
             --set fileShare.subscriptionId=${{ vars.AZURE_SUBSCRIPTION_ID }}
         working-directory: kubernetes/charts/azure-persistentvolume
+
+      - name: Install teamspeak-old
+        run: |
+          helm dependency update .
+          helm upgrade --install --wait --atomic --debug \
+            teamspeak-old . \
+            --namespace default \
+            -f values.yaml \
+            --set serverAdminPassword="${{ secrets.TEAMSPEAK_SERVERADMIN_PASSWORD }}"
+        working-directory: kubernetes/charts/teamspeak-old
+
+      - name: Install persistent volume for teamspeak
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            teamspeak-persistentvolume . \
+            --namespace default \
+            --set name=teamspeak \
+            --set disk.capacity=1Gi \
+            --set volumeHandle=teamspeak
+        working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install teamspeak
         run: |
@@ -69,11 +89,9 @@ jobs:
             teamspeak-alt-persistentvolume . \
             --namespace default \
             --set name=teamspeak-alt \
-            --set disk.capacity=10Gi \
-            --set useFileShare=true \
-            --set fileShare.name=teamspeak-alt \
-            --set fileShare.subscriptionId=${{ vars.AZURE_SUBSCRIPTION_ID }}
-        working-directory: kubernetes/charts/azure-persistentvolume
+            --set disk.capacity=1Gi \
+            --set volumeHandle=teamspeak-alt
+        working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install teamspeak-alt
         run: |

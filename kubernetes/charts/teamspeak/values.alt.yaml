@@ -1,6 +1,6 @@
 ports:
   filetransfer: 30034
-  serverquery: 10012
+  serverquery: 10023
   voice: 9988
 persistence:
   existingClaim: teamspeak-alt

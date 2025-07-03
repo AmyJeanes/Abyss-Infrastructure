@@ -22,23 +22,27 @@ spec:
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: TSSERVER_QUERY_ADMIN_PASSWORD
+            - name: TS3SERVER_SERVERADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}
                   key: serveradmin-password
-            - name: TSSERVER_DATABASE_PLUGIN
-              value: sqlite3
-            - name: TSSERVER_DATABASE_SQL_CREATE_PATH
+            - name: TS3SERVER_DB_PLUGIN
+              value: ts3db_sqlite3
+            - name: TS3SERVER_DB_SQLCREATEPATH
               value: create_sqlite
-            - name: TSSERVER_LICENSE_ACCEPTED
+            - name: TS3SERVER_LICENSE
               value: accept
-            - name: TSSERVER_FILE_TRANSFER_PORT
+            - name: TS3SERVER_FILETRANSFER_IP
+              value: "0.0.0.0"
+            - name: TS3SERVER_FILETRANSFER_PORT
               value: {{ required "ports.filetransfer is required" .Values.ports.filetransfer | quote }}
-            - name: TSSERVER_QUERY_SSH_PORT
+            - name: TS3SERVER_QUERY_PORT
               value: {{ required "ports.serverquery is required" .Values.ports.serverquery | quote }}
-            - name: TSSERVER_DEFAULT_PORT
+            - name: TS3SERVER_DEFAULT_VOICE_PORT
               value: {{ required "ports.voice is required" .Values.ports.voice | quote }}
+            - name: TZ
+              value: UTC
           ports:
             - name: filetransfer
               containerPort: {{ .Values.ports.filetransfer }}
@@ -54,7 +58,7 @@ spec:
               protocol: UDP
           volumeMounts:
             - name: data
-              mountPath: /var/tsserver/
+              mountPath: /var/ts3server
           livenessProbe:
             failureThreshold: 3
             initialDelaySeconds: 0

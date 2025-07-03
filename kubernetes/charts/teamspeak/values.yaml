@@ -1,10 +1,10 @@
 image:
-  repository: teamspeak
-  tag: 3.13.7@sha256:6756c50d1a0a7e48db95cf4b38d4c6d59ac0b560bc3b9e986ed069d2c16206f5
+  repository: teamspeaksystems/teamspeak6-server
+  tag: v6.0.0-beta4@sha256:159a766699630d1700e1c6a21348056e1a934222d29927ed67dc3165d97c9915
   pullPolicy: IfNotPresent
 ports:
   filetransfer: 30033
-  serverquery: 10011
+  serverquery: 10022
   voice: 9987
 persistence:
   existingClaim: teamspeak

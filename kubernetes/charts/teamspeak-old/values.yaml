@@ -1,0 +1,16 @@
+image:
+  repository: teamspeak
+  tag: 3.13.7@sha256:6756c50d1a0a7e48db95cf4b38d4c6d59ac0b560bc3b9e986ed069d2c16206f5
+  pullPolicy: IfNotPresent
+ports:
+  filetransfer: 30035
+  serverquery: 10013
+  voice: 9989
+persistence:
+  existingClaim: teamspeak-old
+resources:
+  requests:
+    cpu: 20m
+    memory: 35Mi
+  limits:
+    memory: 35Mi
