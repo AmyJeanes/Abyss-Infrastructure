@@ -19,9 +19,7 @@ spec:
     spec:
       containers:
         - name: teamspeak
-          image: alpine:latest
-          command: [ "/bin/sh", "-c", "--" ]
-          args: [ "while true; do sleep 30; done;" ]
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
             runAsUser: 9987
@@ -60,27 +58,27 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/tsserver/
-          # livenessProbe:
-          #   failureThreshold: 3
-          #   initialDelaySeconds: 0
-          #   periodSeconds: 10
-          #   tcpSocket:
-          #     port: {{ .Values.ports.serverquery }}
-          #   timeoutSeconds: 1
-          # readinessProbe:
-          #   failureThreshold: 3
-          #   initialDelaySeconds: 0
-          #   periodSeconds: 10
-          #   tcpSocket:
-          #     port: {{ .Values.ports.serverquery }}
-          #   timeoutSeconds: 1
-          # startupProbe:
-          #   failureThreshold: 30
-          #   initialDelaySeconds: 0
-          #   periodSeconds: 5
-          #   tcpSocket:
-          #     port: {{ .Values.ports.serverquery }}
-          #   timeoutSeconds: 1
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: {{ .Values.ports.serverquery }}
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: {{ .Values.ports.serverquery }}
+            timeoutSeconds: 1
+          startupProbe:
+            failureThreshold: 30
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            tcpSocket:
+              port: {{ .Values.ports.serverquery }}
+            timeoutSeconds: 1
           resources: {{ toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: data
