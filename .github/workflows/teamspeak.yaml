@@ -32,7 +32,7 @@ jobs:
           helm upgrade --install --wait --atomic --debug \
             teamspeak-old-persistentvolume . \
             --namespace default \
-            --set name=teamspeak \
+            --set name=teamspeak-old \
             --set disk.capacity=10Gi \
             --set useFileShare=true \
             --set fileShare.name=teamspeak \
