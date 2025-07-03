@@ -21,6 +21,9 @@ spec:
         - name: teamspeak
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            runAsUser: 9987
+            runAsGroup: 9987
           env:
             - name: TSSERVER_QUERY_ADMIN_PASSWORD
               valueFrom:
