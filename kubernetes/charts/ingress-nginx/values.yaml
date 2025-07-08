@@ -12,3 +12,5 @@ ingress-nginx:
       annotations-risk-level: Critical
       strict-validate-path-type: false
     allowSnippetAnnotations: true
+    updateStrategy:
+      type: Recreate
