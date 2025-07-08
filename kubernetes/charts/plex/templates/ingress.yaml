@@ -8,10 +8,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - plex.mattjeanes.com
+        - plex.amyjeanes.com
       secretName: plex-tls
   rules:
-  - host: plex.mattjeanes.com
+  - host: plex.amyjeanes.com
     http:
       paths:
       - path: /
