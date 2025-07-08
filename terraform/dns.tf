@@ -7,7 +7,10 @@ locals {
     "hello-world-direct",
     "send",
     "ts",
-    "minecraft"
+    "minecraft",
+    "homeassistant",
+    "octoprint",
+    "plex",
   ]
   proxied_records = {
     "cdn" = true,

@@ -10,4 +10,5 @@ ingress-nginx:
       type: ClusterIP
     config:
       annotations-risk-level: Critical
+      strict-validate-path-type: false
     allowSnippetAnnotations: true
