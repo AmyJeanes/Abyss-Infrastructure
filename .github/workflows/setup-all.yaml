@@ -159,3 +159,15 @@ jobs:
     needs: postgresql
     uses: ./.github/workflows/teslamate.yaml
     secrets: inherit
+
+  minecraft:
+    name: Deploy Minecraft
+    needs: [longhorn, ingress-certificates]
+    uses: ./.github/workflows/minecraft.yaml
+    secrets: inherit
+
+  adguard-home:
+    name: Deploy AdGuard Home
+    needs: ingress-certificates
+    uses: ./.github/workflows/adguard-home.yaml
+    secrets: inherit
