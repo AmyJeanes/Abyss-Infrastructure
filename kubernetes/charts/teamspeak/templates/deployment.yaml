@@ -53,11 +53,11 @@ spec:
               containerPort: {{ .Values.ports.filetransfer }}
               hostPort: {{ .Values.ports.filetransfer }}
               protocol: TCP
-            - name: serverquery-ssh
+            - name: query-ssh
               containerPort: {{ .Values.ports.serverquery.ssh }}
               hostPort: {{ .Values.ports.serverquery.ssh }}
               protocol: TCP
-            - name: serverquery-http
+            - name: query-http
               containerPort: {{ .Values.ports.serverquery.http }}
               hostPort: {{ .Values.ports.serverquery.http }}
               protocol: TCP
