@@ -26,6 +26,6 @@ volumeClaims:
 resources:
   requests:
     cpu: 2
-    memory: 2560Mi
+    memory: 3Gi
   limits:
-    memory: 2560Mi
+    memory: 3Gi
