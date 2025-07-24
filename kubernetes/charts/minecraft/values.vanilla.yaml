@@ -8,10 +8,11 @@ dashboard:
 spiget:
   enabled: true
   resources:
-  - 83557 # BlueMap
-  - 81534 # Chunky
-  - 84278 # ChunkyBorder
-  - 122574 # RestartAR
+  - 83557 # https://www.spigotmc.org/resources/bluemap.83557/
+  - 81534 # https://www.spigotmc.org/resources/chunky.81534/
+  - 84278 # https://www.spigotmc.org/resources/chunkyborder.84278/
+  - 122574 # https://www.spigotmc.org/resources/1-21-1-21-5-restartar-discord-notifications.122574/
+  # - 36618 # https://www.spigotmc.org/resources/prometheus-exporter.36618/ (Installed manually as SpigotMC version is out of date)
 serverProperties:
   motd: Welcome to The Abyss (Vanilla)!
   seed: "777836211"
