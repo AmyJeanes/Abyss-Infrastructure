@@ -43,7 +43,7 @@ spec:
             - name: MOD_PLATFORM
               value: {{ .Values.modPlatform | quote }}
             {{- end }}
-            {{- if .Values.curseforge.enabled -}}
+            {{- if .Values.curseforge.enabled }}
             - name: CF_API_KEY
               valueFrom:
                 secretKeyRef:
