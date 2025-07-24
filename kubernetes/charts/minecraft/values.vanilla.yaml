@@ -8,8 +8,9 @@ dashboard:
 spiget:
   enabled: true
   resources:
-  - 83557 # https://www.spigotmc.org/resources/bluemap.83557/
+  - 64139 # https://www.spigotmc.org/resources/advancedteleport.64139/
   - 81534 # https://www.spigotmc.org/resources/chunky.81534/
+  - 83557 # https://www.spigotmc.org/resources/bluemap.83557/
   - 84278 # https://www.spigotmc.org/resources/chunkyborder.84278/
   - 103746 # https://www.spigotmc.org/resources/unsignedmessages-disable-chat-reporting.103746/
   # - 122574 # https://www.spigotmc.org/resources/1-21-1-21-5-restartar-discord-notifications.122574/ (Installed manually as fails to auto-install)
