@@ -167,7 +167,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "mc_player_online{container=\"minecraft-vanilla\"}",
+          "expr": "mc_player_online{container=\"minecraft-vanilla\"} > 0",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1542,5 +1542,5 @@
   "timezone": "",
   "title": "Minecraft Vanilla",
   "uid": "minecraft-vanilla",
-  "version": 1
+  "version": 2
 }
