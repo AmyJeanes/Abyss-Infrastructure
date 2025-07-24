@@ -168,13 +168,13 @@ spec:
       volumes:
         - name: server
           persistentVolumeClaim:
-            claimName: {{ .volumeClaims.server }}
+            claimName: {{ .Values.volumeClaims.server }}
         - name: world
           persistentVolumeClaim:
-            claimName: {{ .volumeClaims.world }}
+            claimName: {{ .Values.volumeClaims.world }}
         - name: bluemap
           persistentVolumeClaim:
-            claimName: {{ .volumeClaims.bluemap }}
+            claimName: {{ .Values.volumeClaims.bluemap }}
         {{- if .Values.debug }}
         - name: das
           hostPath:
