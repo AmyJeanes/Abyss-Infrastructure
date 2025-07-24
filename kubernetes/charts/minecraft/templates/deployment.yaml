@@ -17,7 +17,7 @@ spec:
         app: {{ .Release.Name }}
     spec:
       containers:
-        - name: minecraft
+        - name: {{ .Release.Name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.debug }}
@@ -86,7 +86,7 @@ spec:
           ports:
             - containerPort: 25565
               hostPort: {{ .Values.hostPort }}
-              name: minecraft
+              name: server
               protocol: TCP
             - containerPort: 25575
               name: rcon

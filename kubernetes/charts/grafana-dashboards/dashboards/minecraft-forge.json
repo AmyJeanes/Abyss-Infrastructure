@@ -97,7 +97,7 @@
         {
           "editorMode": "code",
           "exemplar": false,
-          "expr": "up{container=\"minecraft\"}",
+          "expr": "up{container=\"minecraft-forge\"}",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -546,7 +546,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "time() - process_start_time_seconds{container=\"minecraft\"}",
+          "expr": "time() - process_start_time_seconds{container=\"minecraft-forge\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -642,7 +642,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{container=\"minecraft\"}[1m]))",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{container=\"minecraft-forge\"}[1m]))",
           "legendFormat": "CPU Usage",
           "range": true,
           "refId": "A"
@@ -735,7 +735,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(container_memory_working_set_bytes{container=\"minecraft\"})",
+          "expr": "sum(container_memory_working_set_bytes{container=\"minecraft-forge\"})",
           "legendFormat": "Pod Memory",
           "range": true,
           "refId": "A"
@@ -1646,14 +1646,14 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(process_open_fds{container=\"minecraft\"})",
+          "expr": "sum(process_open_fds{container=\"minecraft-forge\"})",
           "legendFormat": "Open FDs",
           "range": true,
           "refId": "A"
         },
         {
           "editorMode": "code",
-          "expr": "sum(process_max_fds{container=\"minecraft\"})",
+          "expr": "sum(process_max_fds{container=\"minecraft-forge\"})",
           "legendFormat": "Max FDs",
           "range": true,
           "refId": "B"
@@ -1972,7 +1972,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "sum(jvm_threads_current{container=\"minecraft\"})",
+          "expr": "sum(jvm_threads_current{container=\"minecraft-forge\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "Current Threads",
@@ -1987,7 +1987,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "sum(jvm_threads_peak{container=\"minecraft\"})",
+          "expr": "sum(jvm_threads_peak{container=\"minecraft-forge\"})",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -2086,7 +2086,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "sum(jvm_classes_currently_loaded{container=\"minecraft\"})",
+          "expr": "sum(jvm_classes_currently_loaded{container=\"minecraft-forge\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "Current Threads",
@@ -2123,7 +2123,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Minecraft",
-  "uid": "minecraft",
+  "title": "Minecraft Forge",
+  "uid": "minecraft-forge",
   "version": 1
 }
