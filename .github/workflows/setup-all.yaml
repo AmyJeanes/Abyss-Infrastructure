@@ -160,10 +160,16 @@ jobs:
     uses: ./.github/workflows/teslamate.yaml
     secrets: inherit
 
-  minecraft:
-    name: Deploy Minecraft
+  minecraft-forge:
+    name: Deploy Minecraft Forge
     needs: [longhorn, ingress-certificates]
-    uses: ./.github/workflows/minecraft.yaml
+    uses: ./.github/workflows/minecraft-forge.yaml
+    secrets: inherit
+
+  minecraft-vanilla:
+    name: Deploy Minecraft Vanilla
+    needs: [longhorn, ingress-certificates]
+    uses: ./.github/workflows/minecraft-vanilla.yaml
     secrets: inherit
 
   adguard-home:

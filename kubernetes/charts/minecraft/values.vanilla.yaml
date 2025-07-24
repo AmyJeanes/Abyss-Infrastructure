@@ -1,0 +1,27 @@
+memory: 4G
+version: 1.21.8
+type: PAPER
+hostPort: 25575
+dashboard:
+  enabled: true
+  url: https://grafana.amyjeanes.com/public-dashboards/0ebe4d51ecbc4a9b9238000cc5ebdbc8
+spiget:
+  enabled: true
+  resources:
+  - 83557 # BlueMap
+  - 81534 # Chunky
+  - 84278 # ChunkyBorder
+  - 122574 # RestartAR
+serverProperties:
+  motd: Welcome to The Abyss (Vanilla)!
+  seed: "777836211"
+volumeClaims:
+  server: minecraft-vanilla-server
+  world: minecraft-vanilla-world
+  bluemap: minecraft-vanilla-bluemap
+resources:
+  requests:
+    cpu: 2
+    memory: 5Gi
+  limits:
+    memory: 5Gi

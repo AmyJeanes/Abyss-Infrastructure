@@ -1,0 +1,77 @@
+name: Minecraft Vanilla
+
+on:
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Enable debug mode'
+        required: false
+        type: boolean
+        default: false
+  workflow_call:
+
+jobs:
+  deploy-minecraft-vanilla:
+    name: Deploy Minecraft Vanilla
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Connect to Kubernetes
+        uses: ./.github/actions/connect-k8s
+        with:
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+          hostname: kubernetes-api.${{ vars.HOST }}
+          serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
+          serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
+
+      - name: Install persistent volume for minecraft-vanilla-server
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            minecraft-vanilla-server-persistentvolume . \
+            --namespace default \
+            --set name=minecraft-vanilla-server \
+            --set disk.capacity=1Gi \
+            --set volumeHandle=minecraft-vanilla-server
+        working-directory: kubernetes/charts/longhorn-persistentvolume
+
+      - name: Install persistent volume for minecraft-vanilla-world
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            minecraft-vanilla-world-persistentvolume . \
+            --namespace default \
+            --set name=minecraft-vanilla-world \
+            --set disk.capacity=1Gi \
+            --set volumeHandle=minecraft-vanilla-world
+        working-directory: kubernetes/charts/longhorn-persistentvolume
+
+      - name: Install persistent volume for minecraft-vanilla-bluemap
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            minecraft-vanilla-bluemap-persistentvolume . \
+            --namespace default \
+            --set name=minecraft-vanilla-bluemap \
+            --set disk.capacity=2Gi \
+            --set volumeHandle=minecraft-vanilla-bluemap
+        working-directory: kubernetes/charts/longhorn-persistentvolume
+
+      - name: Install minecraft-vanilla
+        run: |
+          helm dependency update .
+          helm upgrade --install --wait --atomic --debug \
+            minecraft-vanilla . \
+            --namespace default \
+            --timeout 600s \
+            -f values.yaml \
+            -f values.vanilla.yaml \
+            --set filebrowser.username='${{ vars.MINECRAFT_FILEBROWSER_USERNAME }}' \
+            --set filebrowser.password='${{ secrets.MINECRAFT_FILEBROWSER_PASSWORD }}' \
+            --set curseforge.apiKey='${{ secrets.CURSEFORGE_API_KEY }}' \
+            --set rcon.password='${{ secrets.MINECRAFT_RCON_PASSWORD }}' \
+            --set ingress.host="minecraft-vanilla.${{ vars.HOST }}" \
+            --set debug="${{ github.event.inputs.debug }}"
+        working-directory: kubernetes/charts/minecraft
+
+      - name: Disconnect from Kubernetes
+        uses: ./.github/actions/disconnect-k8s
