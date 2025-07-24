@@ -3,8 +3,20 @@ vpa:
     extraArgs:
       prometheus-address: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
       storage: prometheus
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        memory: 50Mi
   updater:
     extraArgs:
       min-replicas: "1"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        memory: 50Mi
   admissionController:
     enabled: true
