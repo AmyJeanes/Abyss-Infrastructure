@@ -41,6 +41,23 @@ resource "cloudflare_dns_record" "dns" {
   proxied = lookup(local.proxied_records, each.key, false)
 }
 
+resource "cloudflare_dns_record" "minecraft_vanilla_srv" {
+  zone_id = var.cloudflare_zone_id
+  type    = "SRV"
+  name    = "_minecraft._tcp.minecraft-vanilla"
+  ttl     = 1
+
+  data = {
+    service  = "_minecraft"
+    proto    = "_tcp"
+    name     = "minecraft-vanilla.${data.cloudflare_zone.main.name}."
+    priority = 0
+    weight   = 5
+    port     = 25575
+    target   = "minecraft-vanilla.${data.cloudflare_zone.main.name}."
+  }
+}
+
 data "cloudflare_zone" "main" {
   zone_id = var.cloudflare_zone_id
 }
