@@ -39,8 +39,11 @@ spec:
               value: {{ .Values.version | quote }}
             - name: TYPE
               value: {{ .Values.type | quote }}
+            {{- if .Values.modPlatform }}
             - name: MOD_PLATFORM
               value: {{ .Values.modPlatform | quote }}
+            {{- end }}
+            {{- if .Values.curseforge.enabled -}}
             - name: CF_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -52,6 +55,11 @@ spec:
               value: {{ .Values.curseforge.overrides.exclusions | quote }}
             - name: CURSEFORGE_FILES
               value: {{ join " " .Values.curseforge.extraMods | quote }}
+            {{- end }}
+            {{- if .Values.spiget.enabled -}}
+            - name: SPIGET_RESOURCES
+              value: {{ join "," .Values.spiget.resources | quote }}
+            {{- end }}
             - name: MOTD
               value: {{ .Values.serverProperties.motd | quote }}
             - name: DIFFICULTY

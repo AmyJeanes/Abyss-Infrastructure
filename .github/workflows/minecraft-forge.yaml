@@ -11,8 +11,8 @@ on:
   workflow_call:
 
 jobs:
-  deploy-minecraft:
-    name: Deploy Minecraft
+  deploy-minecraft-forge:
+    name: Deploy Minecraft Forge
     runs-on: ubuntu-latest
 
     steps:
@@ -26,59 +26,50 @@ jobs:
           serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
           serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
 
-      - name: Install persistent volume for minecraft-server
+      - name: Install persistent volume for minecraft-forge-server
         run: |
           helm upgrade --install --wait --atomic --debug \
-            minecraft-server-persistentvolume . \
+            minecraft-forge-server-persistentvolume . \
             --namespace default \
-            --set name=minecraft-server \
+            --set name=minecraft-forge-server \
             --set disk.capacity=10Gi \
-            --set volumeHandle=minecraft-server
+            --set volumeHandle=minecraft-forge-server
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
-      - name: Install persistent volume for minecraft-world
+      - name: Install persistent volume for minecraft-forge-world
         run: |
           helm upgrade --install --wait --atomic --debug \
-            minecraft-world-persistentvolume . \
+            minecraft-forge-world-persistentvolume . \
             --namespace default \
-            --set name=minecraft-world \
+            --set name=minecraft-forge-world \
             --set disk.capacity=15Gi \
-            --set volumeHandle=minecraft-world
+            --set volumeHandle=minecraft-forge-world
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
-      - name: Install persistent volume for minecraft-backups
+      - name: Install persistent volume for minecraft-forge-bluemap
         run: |
           helm upgrade --install --wait --atomic --debug \
-            minecraft-backups-persistentvolume . \
+            minecraft-forge-bluemap-persistentvolume . \
             --namespace default \
-            --set name=minecraft-backups \
-            --set disk.capacity=80Gi \
-            --set volumeHandle=minecraft-backups
-        working-directory: kubernetes/charts/longhorn-persistentvolume
-
-      - name: Install persistent volume for minecraft-bluemap
-        run: |
-          helm upgrade --install --wait --atomic --debug \
-            minecraft-bluemap-persistentvolume . \
-            --namespace default \
-            --set name=minecraft-bluemap \
+            --set name=minecraft-forge-bluemap \
             --set disk.capacity=25Gi \
-            --set volumeHandle=minecraft-bluemap
+            --set volumeHandle=minecraft-forge-bluemap
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
-      - name: Install minecraft
+      - name: Install minecraft-forge
         run: |
           helm dependency update .
           helm upgrade --install --wait --atomic --debug \
-            minecraft . \
+            minecraft-forge . \
             --namespace default \
             --timeout 600s \
             -f values.yaml \
+            -f values.forge.yaml \
             --set filebrowser.username='${{ vars.MINECRAFT_FILEBROWSER_USERNAME }}' \
             --set filebrowser.password='${{ secrets.MINECRAFT_FILEBROWSER_PASSWORD }}' \
             --set curseforge.apiKey='${{ secrets.CURSEFORGE_API_KEY }}' \
             --set rcon.password='${{ secrets.MINECRAFT_RCON_PASSWORD }}' \
-            --set ingress.host="minecraft.${{ vars.HOST }}" \
+            --set ingress.host="minecraft-forge.${{ vars.HOST }}" \
             --set debug="${{ github.event.inputs.debug }}"
         working-directory: kubernetes/charts/minecraft
 

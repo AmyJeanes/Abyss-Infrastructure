@@ -15,33 +15,18 @@ filebrowser:
       memory: 50Mi
   username: "" # Set in pipeline
   password: "" # Set in pipeline
+spiget:
+  enabled: false
+curseforge:
+  enabled: false
+  apiKey: "" # Set in pipeline
 debug: false
 timezone: Europe/London
-memory: 13G
-version: 1.21.1
-type: NEOFORGE
-modPlatform: AUTO_CURSEFORGE
 probes: true
-curseforge:
-  apiKey: "" # Set in pipeline
-  pageUrl: https://www.curseforge.com/minecraft/modpacks/all-the-mods-10/files/6378501
-  overrides:
-    exclusions: shaderpacks/**
-  extraMods:
-  - https://www.curseforge.com/minecraft/mc-mods/chunky-pregenerator-forge/files/6383261
-  - https://www.curseforge.com/minecraft/mc-mods/chunky-border-forge/files/5437062
-  - https://www.curseforge.com/minecraft/mc-mods/bluemap/files/6239407
-  - https://www.curseforge.com/minecraft/mc-mods/shutdowner/files/6128590
-  - https://www.curseforge.com/minecraft/mc-mods/prometheus-exporter/files/5657655
-  - https://www.curseforge.com/minecraft/mc-mods/better-chunk-loading-forge-fabric/files/6210181
-  - https://www.curseforge.com/minecraft/mc-mods/ksyxis/files/6174567
-  - https://www.curseforge.com/minecraft/mc-mods/smooth-chunk-save/files/6296628
 serverProperties:
-  motd: Welcome to The Abyss!
   difficulty: normal
   whitelist: Divided23
   ops: Divided23
-  seed: "777836211"
   allowFlight: true
   viewDistance: 16
   simulationDistance: 10
@@ -50,9 +35,3 @@ rcon:
   broadcastToOps: true
 ingress:
   host: "" # Set in pipeline
-resources:
-  requests:
-    cpu: 4
-    memory: 16Gi
-  limits:
-    memory: 16Gi
