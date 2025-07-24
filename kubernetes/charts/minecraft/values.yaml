@@ -15,6 +15,9 @@ filebrowser:
       memory: 50Mi
   username: "" # Set in pipeline
   password: "" # Set in pipeline
+dashboard:
+  enabled: true
+  url: https://grafana.amyjeanes.com/public-dashboards/5ca59e9bb184468fa39d2fabfd68c23d
 spiget:
   enabled: false
 curseforge:

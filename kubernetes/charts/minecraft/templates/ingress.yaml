@@ -4,16 +4,18 @@ metadata:
   name: {{ .Release.Name }}
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    {{- if .Values.dashboard.enabled }}
     nginx.ingress.kubernetes.io/configuration-snippet: |
       if ($request_uri ~* "^/dashboard$") {
-        return 302 https://grafana.amyjeanes.com/public-dashboards/5ca59e9bb184468fa39d2fabfd68c23d;
+        return 302 {{ .Values.dashboard.url }};
       }
+    {{- end }}
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
     - {{ required "ingress.host is required" .Values.ingress.host }}
-    secretName: minecraft-tls
+    secretName: {{ .Release.Name }}-tls
   rules:
   - host: {{ required "ingress.host is required" .Values.ingress.host }}
     http:
@@ -22,13 +24,13 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: minecraft
+            name: {{ .Release.Name }}
             port:
               number: 8100
       - path: /filebrowser
         pathType: Prefix
         backend:
           service:
-            name: minecraft
+            name: {{ .Release.Name }}
             port:
               number: 8080

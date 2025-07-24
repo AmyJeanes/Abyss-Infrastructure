@@ -85,7 +85,7 @@ spec:
               value: {{ .Values.rcon.broadcastToOps | quote }}
           ports:
             - containerPort: 25565
-              hostPort: 25565
+              hostPort: {{ .Values.hostPort }}
               name: minecraft
               protocol: TCP
             - containerPort: 25575

@@ -2,6 +2,7 @@ memory: 13G
 version: 1.21.1
 type: NEOFORGE
 modPlatform: AUTO_CURSEFORGE
+hostPort: 25565
 curseforge:
   enabled: true
   pageUrl: https://www.curseforge.com/minecraft/modpacks/all-the-mods-10/files/6378501
