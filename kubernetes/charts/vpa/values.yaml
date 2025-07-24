@@ -20,3 +20,9 @@ vpa:
         memory: 50Mi
   admissionController:
     enabled: true
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        memory: 50Mi
