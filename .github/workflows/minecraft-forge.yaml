@@ -1,4 +1,4 @@
-name: Minecraft
+name: Minecraft Forge
 
 on:
   workflow_dispatch:
