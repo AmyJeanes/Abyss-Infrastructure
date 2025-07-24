@@ -47,7 +47,7 @@ spec:
             - name: CF_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: minecraft
+                  name: {{ .Release.Name }}
                   key: curseforge-api-key
             - name: CF_PAGE_URL
               value: {{ .Values.curseforge.pageUrl | quote }}
@@ -138,7 +138,7 @@ spec:
             - name: FB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: minecraft
+                  name: {{ .Release.Name }}
                   key: filebrowser-password
           ports:
             - containerPort: 8080
