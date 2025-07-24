@@ -20,6 +20,9 @@ curseforge:
   - https://www.curseforge.com/minecraft/mc-mods/better-chunk-loading-forge-fabric/files/6210181
   - https://www.curseforge.com/minecraft/mc-mods/ksyxis/files/6174567
   - https://www.curseforge.com/minecraft/mc-mods/smooth-chunk-save/files/6296628
+probes:
+  enabled: true
+  startupDelaySeconds: 120
 serverProperties:
   motd: Welcome to The Abyss (Forge)!
   seed: "777836211"

@@ -24,7 +24,8 @@ curseforge:
   apiKey: "" # Set in pipeline
 debug: false
 timezone: Europe/London
-probes: true
+probes:
+  enabled: false
 serverProperties:
   difficulty: normal
   whitelist: Divided23

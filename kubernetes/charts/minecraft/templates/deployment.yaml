@@ -108,7 +108,7 @@ spec:
             - name: das
               mountPath: /das
             {{- end }}
-          {{- if and .Values.probes (not .Values.debug) }}
+          {{- if and .Values.probes.enabled (not .Values.debug) }}
           livenessProbe:
             failureThreshold: 5
             periodSeconds: 30
@@ -117,7 +117,7 @@ spec:
               port: 25565
           startupProbe:
             failureThreshold: 26
-            initialDelaySeconds: 120
+            initialDelaySeconds: {{ .Values.probes.startupDelaySeconds }}
             periodSeconds: 30
             timeoutSeconds: 10
             tcpSocket:

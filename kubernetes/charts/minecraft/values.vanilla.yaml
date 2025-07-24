@@ -13,6 +13,9 @@ spiget:
   - 84278 # https://www.spigotmc.org/resources/chunkyborder.84278/
   # - 122574 # https://www.spigotmc.org/resources/1-21-1-21-5-restartar-discord-notifications.122574/ (Installed manually as fails to auto-install)
   # - 36618 # https://www.spigotmc.org/resources/prometheus-exporter.36618/ (Installed manually as SpigotMC version is out of date)
+probes:
+  enabled: true
+  startupDelaySeconds: 30
 serverProperties:
   motd: Welcome to The Abyss (Vanilla)!
   seed: "777836211"
