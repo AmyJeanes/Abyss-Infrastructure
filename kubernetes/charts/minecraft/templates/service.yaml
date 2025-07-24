@@ -20,7 +20,7 @@ spec:
       name: filebrowser
       protocol: TCP
     {{- if .Values.metrics.enabled }}
-    - port: 19565
+    - port: {{ .Values.metrics.port }}
       name: metrics
       protocol: TCP
     {{- end }}
