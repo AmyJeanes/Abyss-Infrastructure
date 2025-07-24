@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
     {{- if .Values.dashboard.enabled }}
     nginx.ingress.kubernetes.io/configuration-snippet: |
       if ($request_uri ~* "^/dashboard$") {
