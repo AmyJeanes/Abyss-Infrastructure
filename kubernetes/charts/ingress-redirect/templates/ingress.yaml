@@ -4,12 +4,12 @@ metadata:
   name: {{ .Release.Name }}
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/server-snippet: |
       if ($scheme = "https") {
         return 301 {{ required "redirect is required" .Values.redirect }};
       }
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
     - {{ required "host is required" .Values.host }}

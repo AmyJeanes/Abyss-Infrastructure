@@ -2,13 +2,13 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: minecraft
+  name: {{ .Release.Name }}
 spec:
   endpoints:
   - port: metrics
   namespaceSelector:
     matchNames:
-    - default
+    - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: minecraft
+      app: {{ .Release.Name }}

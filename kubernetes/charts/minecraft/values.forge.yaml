@@ -19,6 +19,10 @@ curseforge:
 serverProperties:
   motd: Welcome to The Abyss (Forge)!
   seed: "777836211"
+volumeClaims:
+  server: minecraft-forge-server
+  world: minecraft-forge-world
+  bluemap: minecraft-forge-bluemap
 resources:
   requests:
     cpu: 4

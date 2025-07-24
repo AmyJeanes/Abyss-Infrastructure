@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: minecraft
+  name: {{ .Release.Name }}
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: minecraft
+      app: {{ .Release.Name }}
   template:
     metadata:
       annotations:
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       labels:
-        app: minecraft
+        app: {{ .Release.Name }}
     spec:
       containers:
         - name: minecraft
@@ -79,7 +79,7 @@ spec:
             - name: RCON_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: minecraft
+                  name: {{ .Release.Name }}
                   key: rcon-password
             - name: BROADCAST_RCON_TO_OPS
               value: {{ .Values.rcon.broadcastToOps | quote }}
@@ -98,13 +98,11 @@ spec:
               name: metrics
               protocol: TCP
           volumeMounts:
-            - name: minecraft-server
+            - name: server
               mountPath: /data
-            - name: minecraft-world
+            - name: world
               mountPath: /data/world
-            - name: minecraft-backups
-              mountPath: /data/simplebackups
-            - name: minecraft-bluemap
+            - name: bluemap
               mountPath: /data/bluemap
             {{- if .Values.debug }}
             - name: das
@@ -147,13 +145,11 @@ spec:
               name: filebrowser
               protocol: TCP
           volumeMounts:
-            - name: minecraft-server
+            - name: server
               mountPath: /data
-            - name: minecraft-world
+            - name: world
               mountPath: /data/world
-            - name: minecraft-backups
-              mountPath: /data/simplebackups
-            - name: minecraft-bluemap
+            - name: bluemap
               mountPath: /data/bluemap
           resources: {{ toYaml .Values.filebrowser.resources | nindent 12 }}
           {{- if and .Values.probes (not .Values.debug) }}
@@ -170,18 +166,15 @@ spec:
       terminationGracePeriodSeconds: 120
       {{- end }}
       volumes:
-        - name: minecraft-server
+        - name: server
           persistentVolumeClaim:
-            claimName: minecraft-server
-        - name: minecraft-world
+            claimName: {{ .volumeClaims.server }}
+        - name: world
           persistentVolumeClaim:
-            claimName: minecraft-world
-        - name: minecraft-backups
+            claimName: {{ .volumeClaims.world }}
+        - name: bluemap
           persistentVolumeClaim:
-            claimName: minecraft-backups
-        - name: minecraft-bluemap
-          persistentVolumeClaim:
-            claimName: minecraft-bluemap
+            claimName: {{ .volumeClaims.bluemap }}
         {{- if .Values.debug }}
         - name: das
           hostPath:
