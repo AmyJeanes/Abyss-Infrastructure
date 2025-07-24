@@ -42,7 +42,7 @@ jobs:
             minecraft-vanilla-world-persistentvolume . \
             --namespace default \
             --set name=minecraft-vanilla-world \
-            --set disk.capacity=1Gi \
+            --set disk.capacity=2Gi \
             --set volumeHandle=minecraft-vanilla-world
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
@@ -52,7 +52,7 @@ jobs:
             minecraft-vanilla-bluemap-persistentvolume . \
             --namespace default \
             --set name=minecraft-vanilla-bluemap \
-            --set disk.capacity=2Gi \
+            --set disk.capacity=4Gi \
             --set volumeHandle=minecraft-vanilla-bluemap
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
@@ -62,7 +62,6 @@ jobs:
           helm upgrade --install --wait --atomic --debug \
             minecraft-vanilla . \
             --namespace default \
-            --timeout 600s \
             -f values.yaml \
             -f values.vanilla.yaml \
             --set filebrowser.username='${{ vars.MINECRAFT_FILEBROWSER_USERNAME }}' \
