@@ -5,7 +5,7 @@ modPlatform: AUTO_CURSEFORGE
 hostPort: 25565
 dashboard:
   enabled: true
-  url: https://grafana.amyjeanes.com/public-dashboards/5ca59e9bb184468fa39d2fabfd68c23d
+  url: https://grafana.amyjeanes.com/public-dashboards/7b2663f500af40aea30788f90f3ed36a
 curseforge:
   enabled: true
   pageUrl: https://www.curseforge.com/minecraft/modpacks/all-the-mods-10/files/6378501
