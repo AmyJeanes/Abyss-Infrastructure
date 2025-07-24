@@ -19,8 +19,10 @@ spec:
     - port: 8080
       name: filebrowser
       protocol: TCP
+    {{- if .Values.metrics.enabled }}
     - port: 19565
       name: metrics
       protocol: TCP
+    {{- end }}
   selector:
     app: {{ .Release.Name }}

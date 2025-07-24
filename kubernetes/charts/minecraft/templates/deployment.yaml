@@ -94,9 +94,11 @@ spec:
             - containerPort: 8100
               name: map
               protocol: TCP
-            - containerPort: 19565
+            {{- if .Values.metrics.enabled }}
+            - containerPort: {{ .Values.metrics.port }}
               name: metrics
               protocol: TCP
+            {{- end }}
           volumeMounts:
             - name: server
               mountPath: /data

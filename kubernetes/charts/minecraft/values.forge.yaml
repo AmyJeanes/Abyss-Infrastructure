@@ -23,6 +23,9 @@ curseforge:
 probes:
   enabled: true
   startupDelaySeconds: 120
+metrics:
+  enabled: true
+  port: 19565
 serverProperties:
   motd: Welcome to The Abyss (Forge)!
   seed: "777836211"
