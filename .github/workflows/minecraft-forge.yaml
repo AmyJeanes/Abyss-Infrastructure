@@ -32,7 +32,7 @@ jobs:
             minecraft-forge-server-persistentvolume . \
             --namespace default \
             --set name=minecraft-forge-server \
-            --set disk.capacity=10Gi \
+            --set disk.capacity=15Gi \
             --set volumeHandle=minecraft-forge-server
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
