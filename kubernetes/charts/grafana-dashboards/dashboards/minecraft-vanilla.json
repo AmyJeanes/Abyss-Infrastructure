@@ -926,8 +926,10 @@
       "targets": [
         {
           "editorMode": "code",
+          "exemplar": false,
           "expr": "mc_tick_duration_max{container=\"minecraft-vanilla\"}",
-          "legendFormat": "__auto",
+          "instant": false,
+          "legendFormat": "Tick Duration (Max)",
           "range": true,
           "refId": "A"
         }
@@ -1542,5 +1544,5 @@
   "timezone": "",
   "title": "Minecraft Vanilla",
   "uid": "minecraft-vanilla",
-  "version": 3
+  "version": 4
 }
