@@ -9,7 +9,7 @@ spiget:
   enabled: true
   resources:
   - 6245 # https://www.spigotmc.org/resources/placeholderapi.6245/
-  # - 9089 # https://www.spigotmc.org/resources/essentialsx.9089/ # (Installed manually as fails to auto-install, core + chat only)
+  # - 9089 # https://www.spigotmc.org/resources/essentialsx.9089/ # (Installed manually as fails to auto-install, core, chat + spawn only)
   - 28140 # https://www.spigotmc.org/resources/luckperms.28140/
   - 60623 # https://www.spigotmc.org/resources/sleep-most-1-8-1-21-x-the-most-advanced-sleep-plugin-available-percentage-animations.60623/
   - 81534 # https://www.spigotmc.org/resources/chunky.81534/
