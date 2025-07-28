@@ -26,6 +26,8 @@ debug: false
 timezone: Europe/London
 probes:
   enabled: false
+metrics:
+  enabled: false
 serverProperties:
   difficulty: normal
   whitelist: Divided23
