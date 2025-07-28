@@ -8,9 +8,10 @@ dashboard:
 spiget:
   enabled: true
   resources:
+  - 6245 # https://www.spigotmc.org/resources/placeholderapi.6245/
+  - 9089 # https://www.spigotmc.org/resources/essentialsx.9089/
   - 28140 # https://www.spigotmc.org/resources/luckperms.28140/
   - 60623 # https://www.spigotmc.org/resources/sleep-most-1-8-1-21-x-the-most-advanced-sleep-plugin-available-percentage-animations.60623/
-  - 64139 # https://www.spigotmc.org/resources/advancedteleport.64139/
   - 81534 # https://www.spigotmc.org/resources/chunky.81534/
   - 83557 # https://www.spigotmc.org/resources/bluemap.83557/
   - 84278 # https://www.spigotmc.org/resources/chunkyborder.84278/
