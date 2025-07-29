@@ -109,9 +109,11 @@ spec:
             - name: world
               subPath: world
               mountPath: /data/world
-            - name: world_nether
+            - name: world
+              subPath: world_nether
               mountPath: /data/world_nether
-            - name: world_the_end
+            - name: world
+              subPath: world_the_end
               mountPath: /data/world_the_end
             {{- end }}
             - name: bluemap
@@ -159,8 +161,20 @@ spec:
           volumeMounts:
             - name: server
               mountPath: /data
+            {{- if or (eq .Values.type "NEOFORGE") .Values.debug }}
             - name: world
               mountPath: /data/world
+            {{- else }}
+            - name: world
+              subPath: world
+              mountPath: /data/world
+            - name: world
+              subPath: world_nether
+              mountPath: /data/world_nether
+            - name: world
+              subPath: world_the_end
+              mountPath: /data/world_the_end
+            {{- end }}
             - name: bluemap
               mountPath: /data/bluemap
           resources: {{ toYaml .Values.filebrowser.resources | nindent 12 }}
