@@ -7,3 +7,7 @@ rcon:
   password: dummy-rcon-password
 ingress:
   host: dummy-host.com
+volumeClaims:
+  server: dummy-server-volume
+  world: dummy-world-volume
+  bluemap: dummy-bluemap-volume
