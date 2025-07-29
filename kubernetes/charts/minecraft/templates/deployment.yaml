@@ -102,8 +102,18 @@ spec:
           volumeMounts:
             - name: server
               mountPath: /data
+            {{- if or (eq .Values.type "NEOFORGE") .Values.debug }}
             - name: world
               mountPath: /data/world
+            {{- else }}
+            - name: world
+              subPath: world
+              mountPath: /data/world
+            - name: world_nether
+              mountPath: /data/world_nether
+            - name: world_the_end
+              mountPath: /data/world_the_end
+            {{- end }}
             - name: bluemap
               mountPath: /data/bluemap
             {{- if .Values.debug }}
