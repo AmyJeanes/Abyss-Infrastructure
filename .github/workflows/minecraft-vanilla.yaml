@@ -52,7 +52,7 @@ jobs:
             minecraft-vanilla-bluemap-persistentvolume . \
             --namespace default \
             --set name=minecraft-vanilla-bluemap \
-            --set disk.capacity=15Gi \
+            --set disk.capacity=16Gi \
             --set volumeHandle=minecraft-vanilla-bluemap
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
