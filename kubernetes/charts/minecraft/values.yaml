@@ -1,11 +1,11 @@
 image:
   repository: itzg/minecraft-server
-  tag: java21@sha256:91aa413b744822b82a0ff1123361e8a59e1f564630a935f8161eac99958bc93d
+  tag: java21@sha256:9c7fdc7fadb9d40ad1febcceb3cb528b9dd0a41051077dfe1e52b97b5b678089
   pullPolicy: IfNotPresent
 filebrowser:
   image:
     repository: hurlenko/filebrowser
-    tag: v2.41.0@sha256:8ed06405fe17fc575b655107e3bfe38e4cce89e7f3f19d1322e65f41f62c0271
+    tag: v2.42.0@sha256:26adfc1a3962a3ee5e8176e7998e6b91dd2dab777c3c8e003e8c2847d9ee1e80
     pullPolicy: IfNotPresent
   resources:
     requests:
