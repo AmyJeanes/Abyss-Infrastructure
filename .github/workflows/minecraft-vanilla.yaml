@@ -42,7 +42,7 @@ jobs:
             minecraft-vanilla-world-persistentvolume . \
             --namespace default \
             --set name=minecraft-vanilla-world \
-            --set disk.capacity=2Gi \
+            --set disk.capacity=3Gi \
             --set volumeHandle=minecraft-vanilla-world
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
