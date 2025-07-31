@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.enabled | ternary 1 0 }}
   strategy:
     type: Recreate
   selector:

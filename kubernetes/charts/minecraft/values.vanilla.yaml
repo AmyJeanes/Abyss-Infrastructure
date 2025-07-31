@@ -1,3 +1,4 @@
+enabled: true
 memory: 2G
 version: 1.21.8
 type: PAPER

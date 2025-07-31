@@ -1,3 +1,4 @@
+enabled: false
 memory: 13G
 version: 1.21.1
 type: NEOFORGE
