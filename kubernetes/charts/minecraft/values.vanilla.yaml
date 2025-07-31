@@ -13,7 +13,6 @@ spiget:
   # - 9089 # https://www.spigotmc.org/resources/essentialsx.9089/ # (Installed manually as fails to auto-install, core, chat + spawn only)
   - 28140 # https://www.spigotmc.org/resources/luckperms.28140/
   # - 36618 # https://www.spigotmc.org/resources/prometheus-exporter.36618/ (Installed manually as SpigotMC version is out of date)
-  - 60623 # https://www.spigotmc.org/resources/sleep-most-1-8-1-21-x-the-most-advanced-sleep-plugin-available-percentage-animations.60623/
   - 62325 # https://www.spigotmc.org/resources/gsit-modern-sit-seat-and-chair-lay-and-crawl-plugin-1-16-1-21-8.62325/
   - 81534 # https://www.spigotmc.org/resources/chunky.81534/
   - 83557 # https://www.spigotmc.org/resources/bluemap.83557/
