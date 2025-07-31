@@ -1,5 +1,5 @@
 enabled: true
-memory: 2G
+memory: 4G
 version: 1.21.8
 type: PAPER
 hostPort: 25575
@@ -38,6 +38,6 @@ volumeClaims:
 resources:
   requests:
     cpu: 2
-    memory: 3Gi
+    memory: 6Gi
   limits:
-    memory: 3Gi
+    memory: 6Gi
