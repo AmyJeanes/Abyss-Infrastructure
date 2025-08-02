@@ -20,6 +20,7 @@ spiget:
   # - 87410 # https://www.spigotmc.org/resources/%E2%9A%A1%EF%B8%8F-wildloaders-%E2%9A%A1%EF%B8%8F-load-chunks-without-alts-%E2%9A%A1%EF%B8%8F-1-21-5-support.87410/ (Installed manually as fails to auto-install)
   - 103746 # https://www.spigotmc.org/resources/unsignedmessages-disable-chat-reporting.103746/
   # - 110213 # https://www.spigotmc.org/resources/treecuter-1-17-1-21-%E2%9C%A8-cut-down-trees-%E2%9C%85.110213/ # (Installed manually as fails to auto-install)
+  - 118271 # https://www.spigotmc.org/resources/gravesx.118271/
   # - 122574 # https://www.spigotmc.org/resources/1-21-1-21-5-restartar-discord-notifications.122574/ (Installed manually as fails to auto-install)
 probes:
   enabled: true
