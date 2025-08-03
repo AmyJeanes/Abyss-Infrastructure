@@ -94,6 +94,12 @@ jobs:
     uses: ./.github/workflows/proxies.yaml
     secrets: inherit
 
+  convertx:
+    name: Deploy ConvertX
+    needs: ingress-certificates
+    uses: ./.github/workflows/convertx.yaml
+    secrets: inherit
+
   teamspeak:
     name: Deploy TeamSpeak
     needs: azure-integration

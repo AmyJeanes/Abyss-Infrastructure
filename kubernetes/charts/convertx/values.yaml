@@ -1,0 +1,4 @@
+image:
+  repository: ghcr.io/c4illin/convertx
+  tag: v0.14.1
+ingress: {}

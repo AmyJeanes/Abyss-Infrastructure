@@ -7,6 +7,7 @@ locals {
     "hello-world-direct",
     "send",
     "ts",
+    "convert",
     "minecraft-forge",
     "minecraft-vanilla",
     "homeassistant",
