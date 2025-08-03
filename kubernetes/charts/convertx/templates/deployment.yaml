@@ -25,7 +25,7 @@ spec:
           value: {{ .Values.jwtSecret | quote }}
         volumeMounts:
         - name: data
-          mountPath: /data
+          mountPath: /app/data
         livenessProbe:
           failureThreshold: 3
           initialDelaySeconds: 0
