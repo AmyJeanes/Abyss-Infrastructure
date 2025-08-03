@@ -4,6 +4,8 @@ metadata:
   name: convertx
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: convertx
@@ -18,7 +20,7 @@ spec:
         ports:
         - containerPort: 3000
           protocol: TCP
-        environment:
+        env:
         - name: JWT_SECRET
           value: {{ .Values.jwtSecret | quote }}
         volumeMounts:
