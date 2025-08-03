@@ -131,9 +131,6 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "ryzen7_5800u_01" {
   account_id = var.cloudflare_account_id
   tunnel_id  = cloudflare_zero_trust_tunnel_cloudflared.ryzen7_5800u_01.id
   config = {
-    warp_routing = {
-      enabled = false
-    }
     ingress = concat(
       [
         for app_name, app_config in local.zero_trust_applications : {
