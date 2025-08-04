@@ -2,3 +2,8 @@ image:
   repository: ghcr.io/c4illin/convertx
   tag: v0.14.1
 ingress: {}
+auth:
+  username: "" # Set in pipeline
+  password: "" # Set in pipeline
+autoDeleteEveryNHours: 1
+maxSize: 500m

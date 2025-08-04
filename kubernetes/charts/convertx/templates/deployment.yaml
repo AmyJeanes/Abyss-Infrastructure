@@ -23,6 +23,10 @@ spec:
         env:
         - name: JWT_SECRET
           value: {{ .Values.jwtSecret | quote }}
+        - name: ALLOW_UNAUTHENTICATED
+          value: 'true'
+        - name: AUTO_DELETE_EVERY_N_HOURS
+          value: {{ .Values.autoDeleteEveryNHours | quote }}
         volumeMounts:
         - name: data
           mountPath: /app/data

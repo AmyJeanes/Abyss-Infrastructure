@@ -33,7 +33,9 @@ jobs:
             --namespace default \
             -f values.yaml \
             --set ingress.host="convert.${{ vars.HOST }}" \
-            --set jwtSecret="${{ secrets.CONVERTX_JWT_SECRET }}"
+            --set jwtSecret="${{ secrets.CONVERTX_JWT_SECRET }}" \
+            --set auth.username="${{ vars.CONVERTX_USERNAME }}" \
+            --set auth.password="${{ secrets.CONVERTX_PASSWORD }}"
         working-directory: kubernetes/charts/convertx
 
       - name: Disconnect from Kubernetes
