@@ -25,6 +25,8 @@ spec:
           value: {{ .Values.jwtSecret | quote }}
         - name: ALLOW_UNAUTHENTICATED
           value: 'true'
+        - name: HIDE_HISTORY
+          value: 'true'
         - name: AUTO_DELETE_EVERY_N_HOURS
           value: {{ .Values.autoDeleteEveryNHours | quote }}
         volumeMounts:
