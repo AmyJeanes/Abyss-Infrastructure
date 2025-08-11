@@ -78,4 +78,5 @@ jobs:
         working-directory: kubernetes/charts/grafana-dashboards
 
       - name: Disconnect from Kubernetes
+        if: always()
         uses: ./.github/actions/disconnect-k8s

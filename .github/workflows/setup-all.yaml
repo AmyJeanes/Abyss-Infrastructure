@@ -42,6 +42,7 @@ jobs:
             --dry-run=client -o yaml --save-config | kubectl apply -f -
 
       - name: Disconnect from Kubernetes
+        if: always()
         uses: ./.github/actions/disconnect-k8s
 
   cloudflare-tunnel:

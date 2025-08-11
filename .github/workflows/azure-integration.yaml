@@ -65,4 +65,5 @@ jobs:
         working-directory: kubernetes/charts/storage-account-secret
 
       - name: Disconnect from Kubernetes
+        if: always()
         uses: ./.github/actions/disconnect-k8s

@@ -47,4 +47,5 @@ jobs:
         working-directory: kubernetes/charts/octoprint-proxy
 
       - name: Disconnect from Kubernetes
+        if: always()
         uses: ./.github/actions/disconnect-k8s

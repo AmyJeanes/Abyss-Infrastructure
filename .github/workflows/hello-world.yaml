@@ -39,4 +39,5 @@ jobs:
           name: "hello-world-direct-tls"
 
       - name: Disconnect from Kubernetes
+        if: always()
         uses: ./.github/actions/disconnect-k8s

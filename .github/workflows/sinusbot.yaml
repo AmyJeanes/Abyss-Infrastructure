@@ -50,4 +50,5 @@ jobs:
         working-directory: kubernetes/charts/sinusbot
 
       - name: Disconnect from Kubernetes
+        if: always()
         uses: ./.github/actions/disconnect-k8s
