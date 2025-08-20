@@ -1,0 +1,4 @@
+apiVersion: v2
+name: outlookcal-proxy
+type: application
+version: 1.0.0

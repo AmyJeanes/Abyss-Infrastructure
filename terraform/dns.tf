@@ -13,6 +13,7 @@ locals {
     "homeassistant",
     "octoprint",
     "plex",
+    "outlookcalproxy"
   ]
   proxied_records = {
     "cdn" = true,

@@ -8,6 +8,7 @@ on:
     paths:
       - 'kubernetes/charts/homeassistant-proxy/**'
       - 'kubernetes/charts/octoprint-proxy/**'
+      - 'kubernetes/charts/outlookcal-proxy/**'
       - '.github/workflows/proxies.yaml'
 
 jobs:
@@ -45,6 +46,16 @@ jobs:
             -f values.yaml \
             --set ingress.host="octoprint.${{ vars.HOST }}"
         working-directory: kubernetes/charts/octoprint-proxy
+
+      - name: Install outlookcal-proxy
+        run: |
+          helm dependency update .
+          helm upgrade --install --wait --atomic --debug \
+            outlookcal-proxy . \
+            --namespace default \
+            -f values.yaml \
+            --set ingress.host="outlookcalproxy.${{ vars.HOST }}"
+        working-directory: kubernetes/charts/outlookcal-proxy
 
       - name: Disconnect from Kubernetes
         if: always()
