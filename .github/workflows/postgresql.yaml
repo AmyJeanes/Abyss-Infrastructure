@@ -32,7 +32,7 @@ jobs:
             postgresql-persistentvolume . \
             --namespace default \
             --set name=postgresql \
-            --set disk.capacity=4Gi \
+            --set disk.capacity=5Gi \
             --set volumeHandle=postgresql
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
