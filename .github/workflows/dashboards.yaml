@@ -6,8 +6,8 @@ on:
   push:
     branches: [main]
     paths:
-    - 'kubernetes/charts/grafana-dashboards/dashboards/**'
-    - '.github/workflows/dashboards.yaml'
+      - 'kubernetes/charts/grafana-dashboards/**'
+      - '.github/workflows/dashboards.yaml'
 
 jobs:
   dashboards:
