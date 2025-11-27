@@ -823,12 +823,12 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "Matt's computer"
+              "options": "Amy's computer"
             },
             "properties": [
               {
                 "id": "displayName",
-                "value": "Matt's computer"
+                "value": "Amy's computer"
               },
               {
                 "id": "color",
@@ -842,7 +842,7 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "Matt's Tesla"
+              "options": "Amy's Tesla"
             },
             "properties": [
               {
@@ -857,12 +857,12 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "Matt's laptop"
+              "options": "Amy's laptop"
             },
             "properties": [
               {
                 "id": "displayName",
-                "value": "Matt's laptop"
+                "value": "Amy's laptop"
               },
               {
                 "id": "color",
@@ -1029,8 +1029,8 @@
             "uid": "PBB7EDB19FB19A0A4"
           },
           "hide": false,
-          "query": "from(bucket: v.defaultBucket)\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"kWh\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> filter(fn: (r) => r[\"entity_id\"] == \"matt_s_computer_today_s_consumption\")\r\n  |> window(every: ${aggregation})\r\n  |> max()\r\n  |> group()\r\n  |> increase()\r\n  |> difference()",
-          "refId": "Matt's computer"
+          "query": "from(bucket: v.defaultBucket)\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"kWh\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> filter(fn: (r) => r[\"entity_id\"] == \"amy_s_computer_today_s_consumption\")\r\n  |> window(every: ${aggregation})\r\n  |> max()\r\n  |> group()\r\n  |> increase()\r\n  |> difference()",
+          "refId": "Amy's computer"
         },
         {
           "datasource": {
@@ -1041,8 +1041,8 @@
           "format": "time_series",
           "hide": false,
           "rawQuery": true,
-          "rawSql": "SELECT time, SUM(total_energy_used) AS \"Matt's Tesla\"\r\nFROM (\r\n\tSELECT \r\n\t\t$__timeGroup(date, ${aggregation}) AS time,\r\n\t\tcharging_process_id,\r\n\t\tSUM(energy_used) AS total_energy_used \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tcharging_process_id,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN charger_phases IS NULL THEN charger_power\r\n\t\t\t\tELSE charger_actual_current * charger_voltage * CAST(1 AS float) / 1000.0\r\n\t\t\tEND *\r\n\t\t\tEXTRACT(epoch FROM (date - LAG(date) OVER (PARTITION BY charging_process_id ORDER BY date))) / 3600 AS energy_used,\r\n\t\t\tdate\r\n\t\tFROM \r\n\t\t\tcharges\r\n\t\tWHERE \r\n\t\t\t$__timeFilter(date)\r\n\t) t\r\n\tWHERE $__timeFilter(date)\r\n\tGROUP BY time, charging_process_id\r\n\tORDER BY time, charging_process_id\r\n) t2\r\nINNER JOIN charging_processes cp ON t2.charging_process_id = cp.id\r\nWHERE cp.geofence_id = 1\r\nGROUP BY time\r\n",
-          "refId": "Matt's Tesla",
+          "rawSql": "SELECT time, SUM(total_energy_used) AS \"Amy's Tesla\"\r\nFROM (\r\n\tSELECT \r\n\t\t$__timeGroup(date, ${aggregation}) AS time,\r\n\t\tcharging_process_id,\r\n\t\tSUM(energy_used) AS total_energy_used \r\n\tFROM (\r\n\t\tSELECT \r\n\t\t\tcharging_process_id,\r\n\t\t\tCASE\r\n\t\t\t\tWHEN charger_phases IS NULL THEN charger_power\r\n\t\t\t\tELSE charger_actual_current * charger_voltage * CAST(1 AS float) / 1000.0\r\n\t\t\tEND *\r\n\t\t\tEXTRACT(epoch FROM (date - LAG(date) OVER (PARTITION BY charging_process_id ORDER BY date))) / 3600 AS energy_used,\r\n\t\t\tdate\r\n\t\tFROM \r\n\t\t\tcharges\r\n\t\tWHERE \r\n\t\t\t$__timeFilter(date)\r\n\t) t\r\n\tWHERE $__timeFilter(date)\r\n\tGROUP BY time, charging_process_id\r\n\tORDER BY time, charging_process_id\r\n) t2\r\nINNER JOIN charging_processes cp ON t2.charging_process_id = cp.id\r\nWHERE cp.geofence_id = 1\r\nGROUP BY time\r\n",
+          "refId": "Amy's Tesla",
           "sql": {
             "columns": [
               {
@@ -1100,8 +1100,8 @@
             "uid": "PBB7EDB19FB19A0A4"
           },
           "hide": false,
-          "query": "from(bucket: v.defaultBucket)\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"kWh\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> filter(fn: (r) => r[\"entity_id\"] == \"matt_s_laptop_today_s_consumption\")\r\n  |> window(every: ${aggregation})\r\n  |> max()\r\n  |> group()\r\n  |> increase()\r\n  |> difference()",
-          "refId": "Matt's laptop"
+          "query": "from(bucket: v.defaultBucket)\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"kWh\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\r\n  |> filter(fn: (r) => r[\"entity_id\"] == \"amy_s_laptop_today_s_consumption\")\r\n  |> window(every: ${aggregation})\r\n  |> max()\r\n  |> group()\r\n  |> increase()\r\n  |> difference()",
+          "refId": "Amy's laptop"
         },
         {
           "datasource": {

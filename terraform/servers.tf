@@ -266,6 +266,7 @@ resource "azurerm_linux_virtual_machine" "servers" {
 
   lifecycle {
     prevent_destroy = true
+    ignore_changes = [ admin_username, admin_ssh_key[0].username ]
   }
 
   name                = each.value.name
@@ -287,10 +288,10 @@ resource "azurerm_linux_virtual_machine" "servers" {
     caching              = "ReadWrite"
   }
 
-  admin_username = "matt"
+  admin_username = "amy"
 
   admin_ssh_key {
-    username   = "matt"
+    username   = "amy"
     public_key = var.ssh_public_key
   }
 
