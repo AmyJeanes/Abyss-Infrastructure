@@ -1,0 +1,5 @@
+ingress:
+  host: "convert.example.com"
+auth:
+  username: "dummy-user"
+  password: "dummy-password"

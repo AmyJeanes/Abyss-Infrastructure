@@ -101,6 +101,12 @@ jobs:
     uses: ./.github/workflows/convertx.yaml
     secrets: inherit
 
+  stirling-pdf:
+    name: Deploy Stirling-PDF
+    needs: ingress-certificates
+    uses: ./.github/workflows/stirling-pdf.yaml
+    secrets: inherit
+
   teamspeak:
     name: Deploy TeamSpeak
     needs: azure-integration

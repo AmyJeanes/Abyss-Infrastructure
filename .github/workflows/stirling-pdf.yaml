@@ -1,0 +1,42 @@
+name: Stirling-PDF
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [main]
+    paths:
+      - 'kubernetes/charts/stirling-pdf/**'
+      - '.github/workflows/stirling-pdf.yaml'
+
+jobs:
+  deploy-stirling-pdf:
+    name: Deploy Stirling-PDF
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
+
+      - name: Connect to Kubernetes
+        uses: ./.github/actions/connect-k8s
+        with:
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+          hostname: kubernetes-api.${{ vars.HOST }}
+          serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
+          serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
+
+      - name: Install stirling-pdf
+        run: |
+          helm dependency update .
+          helm upgrade --install --wait --atomic --debug \
+            stirling-pdf . \
+            --namespace default \
+            -f values.yaml \
+            --set ingress.host="pdf.${{ vars.HOST }}" \
+            --set auth.username="${{ vars.STIRLING_PDF_USERNAME }}" \
+            --set auth.password="${{ secrets.STIRLING_PDF_PASSWORD }}"
+        working-directory: kubernetes/charts/stirling-pdf
+
+      - name: Disconnect from Kubernetes
+        if: always()
+        uses: ./.github/actions/disconnect-k8s
