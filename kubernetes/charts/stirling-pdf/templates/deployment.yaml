@@ -24,6 +24,8 @@ spec:
           value: "false"
         - name: LANGS
           value: "en_GB"
+        - name: SYSTEM_ENABLEANALYTICS
+          value: "false"
         ports:
         - containerPort: 8080
           protocol: TCP
