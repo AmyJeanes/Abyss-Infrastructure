@@ -17,6 +17,9 @@ spec:
       containers:
       - name: stirling-pdf
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        env:
+        - name: MODE
+          value: BOTH
         ports:
         - containerPort: 8080
           protocol: TCP
