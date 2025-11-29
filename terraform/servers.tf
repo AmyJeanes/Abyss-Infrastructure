@@ -266,7 +266,7 @@ resource "azurerm_linux_virtual_machine" "servers" {
 
   lifecycle {
     prevent_destroy = true
-    ignore_changes = [ admin_username, admin_ssh_key.0.username ]
+    ignore_changes = [ admin_username, admin_ssh_key ]
   }
 
   name                = each.value.name
