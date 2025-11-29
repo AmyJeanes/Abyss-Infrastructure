@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/stirling-tools/stirling-pdf
-  tag: 2.0.1
+  tag: 2.0.1@sha256:281cd2f5d5bb747ce6cd19c54d7ef8e9597bdee2e67eb88fa701f684c8b35654
 ingress: {}
 auth:
   username: "" # Set in pipeline
