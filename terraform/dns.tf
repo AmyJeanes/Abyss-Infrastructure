@@ -8,6 +8,7 @@ locals {
     "send",
     "ts",
     "convert",
+    "pdf",
     "minecraft-forge",
     "minecraft-vanilla",
     "homeassistant",
