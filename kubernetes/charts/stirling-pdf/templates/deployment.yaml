@@ -19,7 +19,11 @@ spec:
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         env:
         - name: MODE
-          value: BOTH
+          value: "BOTH"
+        - name: SECURITY_ENABLELOGIN
+          value: "false"
+        - name: LANGS
+          value: "en_GB"
         ports:
         - containerPort: 8080
           protocol: TCP
