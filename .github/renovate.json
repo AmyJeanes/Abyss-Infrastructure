@@ -6,6 +6,7 @@
     ":automergeMinor"
   ],
   "automergeType": "branch",
+  "ignoreUnstable": true,
   "pinDigest": {
     "automerge": true
   }
