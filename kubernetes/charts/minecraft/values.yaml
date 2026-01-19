@@ -6,7 +6,7 @@ image:
 filebrowser:
   image:
     repository: hurlenko/filebrowser
-    tag: v2.54.0@sha256:c10c3bf97c85fa033fbc078645cdfbd5ec06db7708caf8a54b296fbe206108fc
+    tag: v2.55.0@sha256:e1fe154c5b87519715b53b5dfce80b85d2e244f51df7a346fbe5068644c814a7
     pullPolicy: IfNotPresent
   resources:
     requests:
