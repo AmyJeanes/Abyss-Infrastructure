@@ -6,7 +6,7 @@ image:
 initContainer:
   image: 
     repository: busybox
-    tag: stable@sha256:4059babd1b7f9ad15525d28c5cdc7243eb75b4e4131aca2b4232c66eadce2250
+    tag: stable@sha256:4d9d173f56da7aa120d585650555bd532f9b627911d755be46b270f9037d8b78
     pullPolicy: IfNotPresent
 gluetun:
   image:
