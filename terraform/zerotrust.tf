@@ -29,12 +29,6 @@ locals {
       service = "tcp://kubernetes:443"
       secure  = true
     }
-    "kubernetes-dashboard" = {
-      name          = "Kubernetes Dashboard"
-      service       = "https://kubernetes-dashboard-kong-proxy.kubernetes-dashboard"
-      secure        = true
-      no_tls_verify = true
-    }
     "longhorn" = {
       name    = "Longhorn"
       service = "http://longhorn-frontend.longhorn-system"

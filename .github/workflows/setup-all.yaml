@@ -131,12 +131,6 @@ jobs:
     uses: ./.github/workflows/longhorn.yaml
     secrets: inherit
 
-  kubernetes-dashboard:
-    name: Deploy Kubernetes Dashboard
-    needs: longhorn
-    uses: ./.github/workflows/kubernetes-dashboard.yaml
-    secrets: inherit
-
   vpa:
     name: Deploy Vertical Pod Autoscaler
     needs: longhorn
