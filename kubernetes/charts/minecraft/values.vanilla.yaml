@@ -15,7 +15,7 @@ spiget:
   # - 36618 # https://www.spigotmc.org/resources/prometheus-exporter.36618/ (Installed manually as SpigotMC version is out of date)
   - 62325 # https://www.spigotmc.org/resources/gsit-modern-sit-seat-and-chair-lay-and-crawl-plugin-1-16-1-21-8.62325/
   - 81534 # https://www.spigotmc.org/resources/chunky.81534/
-  - 83557 # https://www.spigotmc.org/resources/bluemap.83557/
+  # - 83557 # https://www.spigotmc.org/resources/bluemap.83557/ (Installed manually as every new version adds a new jar instead of replacing old one)
   - 84278 # https://www.spigotmc.org/resources/chunkyborder.84278/
   # - 87410 # https://www.spigotmc.org/resources/%E2%9A%A1%EF%B8%8F-wildloaders-%E2%9A%A1%EF%B8%8F-load-chunks-without-alts-%E2%9A%A1%EF%B8%8F-1-21-5-support.87410/ (Installed manually as fails to auto-install)
   - 103746 # https://www.spigotmc.org/resources/unsignedmessages-disable-chat-reporting.103746/
