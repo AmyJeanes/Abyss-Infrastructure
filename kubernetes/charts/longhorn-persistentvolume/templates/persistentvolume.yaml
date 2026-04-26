@@ -11,5 +11,9 @@ spec:
     driver: driver.longhorn.io
     fsType: ext4
     volumeHandle: {{ required "volumeHandle is required" .Values.volumeHandle }}
+    {{- if eq .Values.dataEngine "v2" }}
+    volumeAttributes:
+      dataEngine: v2
+    {{- end }}
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: longhorn
+  storageClassName: {{ if eq .Values.dataEngine "v2" }}longhorn-v2{{ else }}longhorn{{ end }}

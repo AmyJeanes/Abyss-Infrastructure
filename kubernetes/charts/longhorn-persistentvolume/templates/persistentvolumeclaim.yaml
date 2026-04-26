@@ -9,6 +9,6 @@ spec:
   resources:
     requests:
       storage: {{ required "disk.capacity is required" .Values.disk.capacity }}
-  storageClassName: longhorn
+  storageClassName: {{ if eq .Values.dataEngine "v2" }}longhorn-v2{{ else }}longhorn{{ end }}
   volumeName: {{ required "name is required" .Values.name }}
 {{- end }}

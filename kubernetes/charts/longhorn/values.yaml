@@ -11,6 +11,10 @@ longhorn:
     defaultReplicaCount: "1"
     storageMinimalAvailablePercentage: "5"
     storageReservedPercentageForDefaultDisk: "10"
+    v2DataEngine: "true"
+    dataEngineHugepageEnabled: "true"
+    dataEngineMemorySize: "1024"
+    dataEngineCPUMask: "0x1"
   metrics:
     serviceMonitor:
       enabled: true
