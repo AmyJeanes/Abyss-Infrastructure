@@ -12,12 +12,6 @@ resource "azurerm_storage_account" "abyss" {
   }
 }
 
-resource "azurerm_backup_container_storage_account" "abyss" {
-  resource_group_name = azurerm_resource_group.abyss.name
-  recovery_vault_name = azurerm_recovery_services_vault.vault.name
-  storage_account_id  = azurerm_storage_account.abyss.id
-}
-
 resource "azurerm_storage_container" "abyss_encrypted" {
   name               = "encrypted"
   storage_account_id = azurerm_storage_account.abyss.id
