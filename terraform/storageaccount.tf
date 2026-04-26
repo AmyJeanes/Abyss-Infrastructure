@@ -5,6 +5,7 @@ resource "azurerm_storage_account" "abyss" {
   account_kind             = "StorageV2"
   account_tier             = "Standard"
   account_replication_type = "LRS"
+  access_tier              = "Cool"
 
   lifecycle {
     prevent_destroy = true
