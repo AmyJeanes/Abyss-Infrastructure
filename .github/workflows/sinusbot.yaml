@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - 'kubernetes/charts/sinusbot/**'
-      - 'kubernetes/charts/azure-persistentvolume/**'
+      - 'kubernetes/charts/longhorn-persistentvolume/**'
       - '.github/workflows/sinusbot.yaml'
 
 jobs:
@@ -32,13 +32,10 @@ jobs:
             sinusbot-persistentvolume . \
             --namespace default \
             --set name=sinusbot \
-            --set disk.capacity=10Gi \
-            --set useFileShare=true \
-            --set fileShare.name=sinusbot \
-            --set fileShare.subscriptionId=${{ vars.AZURE_SUBSCRIPTION_ID }} \
-            --set fileShare.uid=1001 \
-            --set fileShare.gid=1001
-        working-directory: kubernetes/charts/azure-persistentvolume
+            --set disk.capacity=4Gi \
+            --set volumeHandle=sinusbot \
+            --set dataEngine=v2
+        working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install sinusbot
         run: |
