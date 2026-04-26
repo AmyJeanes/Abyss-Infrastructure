@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - 'kubernetes/charts/qbittorrent/**'
-      - 'kubernetes/charts/azure-persistentvolume/**'
+      - 'kubernetes/charts/longhorn-persistentvolume/**'
       - '.github/workflows/qbittorrent.yaml'
 
 jobs:
@@ -32,13 +32,10 @@ jobs:
             qbittorrent-config-persistentvolume . \
             --namespace default \
             --set name=qbittorrent-config \
-            --set disk.capacity=1Gi \
-            --set useFileShare=true \
-            --set fileShare.name=qbittorrent-config \
-            --set fileShare.subscriptionId=${{ vars.AZURE_SUBSCRIPTION_ID }} \
-            --set fileShare.uid=911 \
-            --set fileShare.gid=911
-        working-directory: kubernetes/charts/azure-persistentvolume
+            --set disk.capacity=16Mi \
+            --set volumeHandle=qbittorrent-config \
+            --set dataEngine=v2
+        working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install qbittorrent
         run: |
