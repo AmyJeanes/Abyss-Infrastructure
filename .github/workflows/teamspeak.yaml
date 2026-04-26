@@ -56,7 +56,8 @@ jobs:
             --namespace default \
             --set name=teamspeak \
             --set disk.capacity=1Gi \
-            --set volumeHandle=teamspeak
+            --set volumeHandle=teamspeak \
+            --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install teamspeak
