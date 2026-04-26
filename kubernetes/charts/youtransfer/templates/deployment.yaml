@@ -38,6 +38,8 @@ spec:
         - name: youtransfer
           mountPath: /opt/youtransfer/config
           subPath: config
+        - name: uploads
+          mountPath: /opt/youtransfer/uploads
         ports:
         - containerPort: 5000
         startupProbe:
@@ -51,3 +53,5 @@ spec:
       - name: youtransfer
         persistentVolumeClaim:
           claimName: youtransfer
+      - name: uploads
+        emptyDir: {}
