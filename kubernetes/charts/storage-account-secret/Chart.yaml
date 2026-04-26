@@ -1,4 +1,0 @@
-apiVersion: v2
-name: storage-account-secret
-type: application
-version: 1.0.0

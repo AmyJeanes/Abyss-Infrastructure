@@ -1,6 +1,0 @@
-storageAccount:
-  name: "dummystorageaccount"
-  key: "dummy-storage-account-key"
-crypt:
-  obscuredPassword: "dummy-password"
-  obscuredSalt: "dummy-salt"

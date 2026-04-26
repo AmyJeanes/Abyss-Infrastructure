@@ -65,12 +65,6 @@ jobs:
     uses: ./.github/workflows/ingress-certificates.yaml
     secrets: inherit
 
-  azure-integration:
-    name: Deploy Azure Integration
-    needs: ingress-certificates
-    uses: ./.github/workflows/azure-integration.yaml
-    secrets: inherit
-
   hello-world:
     name: Deploy Hello World
     needs: ingress-certificates
@@ -109,25 +103,25 @@ jobs:
 
   teamspeak:
     name: Deploy TeamSpeak
-    needs: azure-integration
+    needs: ingress-certificates
     uses: ./.github/workflows/teamspeak.yaml
     secrets: inherit
 
   sinusbot:
     name: Deploy SinusBot
-    needs: azure-integration
+    needs: ingress-certificates
     uses: ./.github/workflows/sinusbot.yaml
     secrets: inherit
 
   qbittorrent:
     name: Deploy qBittorrent
-    needs: azure-integration
+    needs: ingress-certificates
     uses: ./.github/workflows/qbittorrent.yaml
     secrets: inherit
 
   longhorn:
     name: Deploy Longhorn
-    needs: azure-integration
+    needs: ingress-certificates
     uses: ./.github/workflows/longhorn.yaml
     secrets: inherit
 
