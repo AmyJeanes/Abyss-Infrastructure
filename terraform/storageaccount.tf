@@ -12,15 +12,6 @@ resource "azurerm_storage_account" "abyss" {
   }
 }
 
-resource "azurerm_storage_container" "abyss_encrypted" {
-  name               = "encrypted"
-  storage_account_id = azurerm_storage_account.abyss.id
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
 output "storage_account_name" {
   value     = azurerm_storage_account.abyss.name
   sensitive = true
