@@ -49,8 +49,5 @@ spec:
           failureThreshold: 6
       volumes:
       - name: youtransfer
-        csi:
-          driver: file.csi.azure.com
-          volumeAttributes:
-            secretName: azure-storage-account
-            shareName: youtransfer
+        persistentVolumeClaim:
+          claimName: youtransfer
