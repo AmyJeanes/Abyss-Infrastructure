@@ -97,6 +97,15 @@ data "cloudflare_zero_trust_access_identity_providers" "main" {
   account_id = var.cloudflare_account_id
 }
 
+locals {
+  idps_by_type = {
+    for idp in data.cloudflare_zero_trust_access_identity_providers.main.result :
+    idp.type => idp.id...
+  }
+  github_idp_id = one(lookup(local.idps_by_type, "github", []))
+  google_idp_id = one(lookup(local.idps_by_type, "google", []))
+}
+
 resource "cloudflare_zero_trust_access_application" "applications" {
   for_each = local.secure_applications
 
@@ -106,9 +115,7 @@ resource "cloudflare_zero_trust_access_application" "applications" {
   auto_redirect_to_identity = true
   options_preflight_bypass  = false
   tags                      = []
-  allowed_idps = [
-    data.cloudflare_zero_trust_access_identity_providers.main.result[0].id
-  ]
+  allowed_idps = each.key == "poster-generator" ? [local.google_idp_id] : [local.github_idp_id]
   destinations = [{
     type = "public"
     uri  = "${each.key}.${data.cloudflare_zone.main.name}"
