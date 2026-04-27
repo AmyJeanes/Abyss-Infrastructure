@@ -49,6 +49,7 @@ jobs:
           email = "${{ vars.EMAIL }}"
           windows_server_password = "${{ secrets.WINDOWS_SERVER_PASSWORD }}"
           azure_subscription_id = "${{ vars.AZURE_SUBSCRIPTION_ID }}"
+          poster_emails = ${{ secrets.POSTER_EMAILS }}
           EOF
         working-directory: terraform
 

@@ -17,6 +17,13 @@ resource "cloudflare_zero_trust_access_policy" "allowed_users" {
     }
   }]
 }
+
+resource "cloudflare_zero_trust_access_policy" "poster_users" {
+  account_id = var.cloudflare_account_id
+  name       = "Poster generator users"
+  decision   = "allow"
+  include    = [for e in var.poster_emails : { email = { email = e } }]
+}
 locals {
   zero_trust_applications = {
     "hello-world-zero-trust" = {
@@ -74,6 +81,11 @@ locals {
       service = "http://adguard-home:8080"
       secure  = true
     }
+    "poster-generator" = {
+      name    = "Poster Generator"
+      service = "http://poster-generator.default:80"
+      secure  = true
+    }
   }
 
   secure_applications = {
@@ -102,7 +114,16 @@ resource "cloudflare_zero_trust_access_application" "applications" {
     uri  = "${each.key}.${data.cloudflare_zone.main.name}"
   }]
 
-  policies = [
+  policies = each.key == "poster-generator" ? [
+    {
+      id         = cloudflare_zero_trust_access_policy.poster_users.id
+      precedence = 1
+    },
+    {
+      id         = cloudflare_zero_trust_access_policy.access_tokens.id
+      precedence = 2
+    }
+  ] : [
     {
       id         = cloudflare_zero_trust_access_policy.allowed_users.id
       precedence = 1

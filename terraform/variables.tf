@@ -29,3 +29,10 @@ variable "windows_server_password" {
 variable "azure_subscription_id" {
   sensitive = true
 }
+
+variable "poster_emails" {
+  type        = list(string)
+  sensitive   = true
+  description = "Email allowlist for the poster-generator app."
+  default     = []
+}
