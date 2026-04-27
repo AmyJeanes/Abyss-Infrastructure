@@ -90,7 +90,8 @@ jobs:
             --namespace default \
             --set name=teamspeak-alt \
             --set disk.capacity=1Gi \
-            --set volumeHandle=teamspeak-alt
+            --set volumeHandle=teamspeak-alt \
+            --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install teamspeak-alt
