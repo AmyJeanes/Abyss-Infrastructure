@@ -22,10 +22,10 @@ kube-prometheus-stack:
             volumeName: alertmanager
             resources:
               requests:
-                storage: 4Gi
+                storage: 512Mi
             accessModes:
             - ReadWriteOnce
-            storageClassName: longhorn
+            storageClassName: longhorn-v2
     config:
       route:
         receiver: pagerduty

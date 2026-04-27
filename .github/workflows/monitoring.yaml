@@ -46,8 +46,9 @@ jobs:
             --namespace monitoring \
             --create-namespace \
             --set name=alertmanager \
-            --set disk.capacity=4Gi \
+            --set disk.capacity=512Mi \
             --set volumeHandle=alertmanager \
+            --set dataEngine=v2 \
             --set persistentVolumeClaim.enabled=false
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
