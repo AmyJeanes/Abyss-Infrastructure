@@ -9,6 +9,13 @@ on:
       - 'kubernetes/charts/longhorn/**'
       - '.github/workflows/longhorn.yaml'
 
+# IMPORTANT: Longhorn upgrades are NOT auto-merge-safe. v2 data engine cannot
+# live-upgrade (Technical Preview); volumes must be quiesced before the
+# instance-manager image changes, or replicas end up pinned to a deleted IM
+# CR. Renovate is configured to NOT auto-merge longhorn (see .github/renovate.json).
+# Walk through the upgrade with the `longhorn-upgrade` Claude skill — it
+# handles quiesce/upgrade/resume interactively and recovers stuck v2 state.
+
 jobs:
   deploy-longhorn:
     name: Deploy Longhorn

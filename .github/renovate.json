@@ -8,5 +8,20 @@
   "automergeType": "branch",
   "pinDigest": {
     "automerge": true
-  }
+  },
+  "packageRules": [
+    {
+      "description": "Longhorn v2 data engine cannot live-upgrade. Walk these through manually with the longhorn-upgrade Claude skill.",
+      "matchPackageNames": ["longhorn"],
+      "matchDatasources": ["helm"],
+      "automerge": false,
+      "labels": ["needs-manual-merge", "longhorn"]
+    },
+    {
+      "description": "TeamSpeak 6 server only ships pre-release tags (v6.0.0-betaN). Default ignoreUnstable=true filters these out — opt in so license-refresh betas get picked up.",
+      "matchPackageNames": ["teamspeaksystems/teamspeak6-server"],
+      "matchDatasources": ["docker"],
+      "ignoreUnstable": false
+    }
+  ]
 }
