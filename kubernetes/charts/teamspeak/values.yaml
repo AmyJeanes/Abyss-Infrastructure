@@ -1,6 +1,6 @@
 image:
   repository: teamspeaksystems/teamspeak6-server
-  tag: v6.0.0-beta8@sha256:1bed4410f325602975bbf9841b282301d3e9ab158f7d905031f4c8cdc591539e
+  tag: 6.0.0-beta9@sha256:96fe7a3178937032d00735cee6d71d7d5d3bfbf8f88da12d5f5a7b0beb91179b
   pullPolicy: IfNotPresent
 ports:
   filetransfer: 30033
