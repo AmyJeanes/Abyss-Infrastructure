@@ -18,9 +18,10 @@
       "labels": ["needs-manual-merge", "longhorn"]
     },
     {
-      "description": "TeamSpeak 6 server only ships pre-release tags (v6.0.0-betaN). Default ignoreUnstable=true filters these out — opt in so license-refresh betas get picked up.",
+      "description": "TeamSpeak 6 server only ships pre-release tags (v6.0.0-betaN). Default docker versioning collapses the -betaN suffix to a variant and ignoreUnstable hides the rest, so neither alone is enough — switch to semver versioning AND opt into unstable so license-refresh betas get picked up.",
       "matchPackageNames": ["teamspeaksystems/teamspeak6-server"],
       "matchDatasources": ["docker"],
+      "versioning": "semver",
       "ignoreUnstable": false
     }
   ]
