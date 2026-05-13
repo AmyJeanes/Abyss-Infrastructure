@@ -1,2 +1,4 @@
+vpn:
+  enabled: true
 openvpn:
   user: "dummy-account-number"

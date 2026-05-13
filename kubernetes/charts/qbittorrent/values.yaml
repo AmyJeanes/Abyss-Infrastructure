@@ -1,22 +1,23 @@
-replicas: 0
+replicas: 1
+puid: 1000
+pgid: 1000
+downloads:
+  hostPath: /mnt/das/Downloads
 image:
   repository: ghcr.io/linuxserver/qbittorrent
   pullPolicy: IfNotPresent
   tag: version-4.6.0-r0@sha256:b96ad7ed83889420d5f6df311065c28ae465ce1d23ea42179f56196eb6ac4d4e
 initContainer:
-  image: 
+  image:
     repository: busybox
     tag: stable@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
     pullPolicy: IfNotPresent
+vpn:
+  enabled: false
 gluetun:
   image:
     repository: ghcr.io/qdm12/gluetun
     tag: v3.41.1@sha256:1a5bf4b4820a879cdf8d93d7ef0d2d963af56670c9ebff8981860b6804ebc8ab
-    pullPolicy: IfNotPresent
-rclone:
-  image:
-    repository: rclone/rclone
-    tag: 1.74.1@sha256:eb8788b795f0009324e9572b0e2acb9b56885327c2746b07d67a9d3b893a6602
     pullPolicy: IfNotPresent
 openvpn:
   user: ""
