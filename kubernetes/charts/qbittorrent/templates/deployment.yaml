@@ -19,11 +19,11 @@ spec:
       initContainers:
         - args:
           - |
-            wget https://github.com/WDaan/VueTorrent/releases/download/v2.33.0/vuetorrent.zip -O /tmp/vuetorrent.zip
+            wget https://github.com/bill-ahmed/qbit-matUI/releases/download/v1.16.4/qbit-matUI_Unix_1.16.4.zip -O /tmp/altui.zip
             rm -rf /vuetorrent/*
-            mkdir /tmp/vuetorrent
-            unzip /tmp/vuetorrent.zip -d /tmp/vuetorrent
-            mv /tmp/vuetorrent/vuetorrent/* /vuetorrent
+            mkdir /tmp/altui
+            unzip /tmp/altui.zip -d /tmp/altui
+            mv /tmp/altui/qbit-matUI_Unix_1.16.4/* /vuetorrent
           command:
           - /bin/sh
           - -c
