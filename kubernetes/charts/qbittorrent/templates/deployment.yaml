@@ -19,7 +19,7 @@ spec:
       initContainers:
         - args:
           - |
-            wget https://github.com/WDaan/VueTorrent/releases/download/v2.1.0/vuetorrent.zip -O /tmp/vuetorrent.zip
+            wget https://github.com/WDaan/VueTorrent/releases/download/v2.33.0/vuetorrent.zip -O /tmp/vuetorrent.zip
             rm -rf /vuetorrent/*
             mkdir /tmp/vuetorrent
             unzip /tmp/vuetorrent.zip -d /tmp/vuetorrent
