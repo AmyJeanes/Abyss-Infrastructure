@@ -33,7 +33,7 @@ runs:
         creds: ${{ inputs.azureCredentials }}
 
     - name: Setup OpenTofu
-      uses: opentofu/setup-opentofu@fc711fa910b93cba0f3fbecaafc9f42fd0c411cb # v2
+      uses: opentofu/setup-opentofu@847eaa4afeb791b06daa46e8eafa8b1b68d7cfb4 # v2
 
     - name: Terraform Init
       run: tofu init -backend-config="storage_account_name=${{ inputs.terraformStorageAccountName }}" -backend-config="container_name=${{ inputs.terraformContainerName }}" -backend-config="key=${{ inputs.terraformStateKey }}" -backend-config="access_key=${{ inputs.terraformStorageAccountKey }}" -upgrade
