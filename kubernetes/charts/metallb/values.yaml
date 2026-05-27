@@ -10,3 +10,7 @@ metallb:
         enabled: false
     serviceMonitor:
       enabled: true
+  frr-k8s:
+    prometheus:
+      serviceMonitor:
+        enabled: false
