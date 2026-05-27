@@ -33,7 +33,8 @@ jobs:
             --namespace default \
             --set name=minecraft-vanilla-server \
             --set disk.capacity=2Gi \
-            --set volumeHandle=minecraft-vanilla-server
+            --set volumeHandle=minecraft-vanilla-server \
+            --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install persistent volume for minecraft-vanilla-world
@@ -43,7 +44,8 @@ jobs:
             --namespace default \
             --set name=minecraft-vanilla-world \
             --set disk.capacity=5Gi \
-            --set volumeHandle=minecraft-vanilla-world
+            --set volumeHandle=minecraft-vanilla-world \
+            --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install persistent volume for minecraft-vanilla-bluemap
@@ -53,7 +55,8 @@ jobs:
             --namespace default \
             --set name=minecraft-vanilla-bluemap \
             --set disk.capacity=30Gi \
-            --set volumeHandle=minecraft-vanilla-bluemap
+            --set volumeHandle=minecraft-vanilla-bluemap \
+            --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install minecraft-vanilla

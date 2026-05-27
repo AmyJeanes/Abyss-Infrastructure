@@ -36,6 +36,7 @@ jobs:
             --set name=prometheus \
             --set disk.capacity=20Gi \
             --set volumeHandle=prometheus \
+            --set dataEngine=v2 \
             --set persistentVolumeClaim.enabled=false
         working-directory: kubernetes/charts/longhorn-persistentvolume
 

@@ -108,7 +108,7 @@ kube-prometheus-stack:
                 storage: 10Gi
             accessModes:
             - ReadWriteOnce
-            storageClassName: longhorn
+            storageClassName: longhorn-v2
       retention: 7d
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false

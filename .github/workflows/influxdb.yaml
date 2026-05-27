@@ -33,7 +33,8 @@ jobs:
             --namespace default \
             --set name=influxdb \
             --set disk.capacity=4Gi \
-            --set volumeHandle=influxdb
+            --set volumeHandle=influxdb \
+            --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install influxdb

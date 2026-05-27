@@ -33,7 +33,8 @@ jobs:
             --namespace default \
             --set name=postgresql \
             --set disk.capacity=5Gi \
-            --set volumeHandle=postgresql
+            --set volumeHandle=postgresql \
+            --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
 
       - name: Install postgresql
