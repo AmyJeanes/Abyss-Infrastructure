@@ -17,6 +17,25 @@ spec:
         app: qbittorrent
     spec:
       initContainers:
+        # Guard: refuse to start (and silently bind the empty root-disk placeholder)
+        # until the external drive is actually mounted. The .mounted sentinel lives
+        # ONLY on /dev/sdb1, so its absence means /mnt/das is unmounted.
+        - name: wait-for-das
+          image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
+          imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+          command:
+          - /bin/sh
+          - -c
+          - |
+            echo "Waiting for external drive at /mnt/das (sentinel .mounted)..."
+            until [ -f /das/.mounted ]; do sleep 5; done
+            echo "External drive is mounted; starting qBittorrent."
+          volumeMounts:
+          - mountPath: /das
+            name: das-root
+            readOnly: true
+            # so a remount on the host while we wait propagates in (self-heals)
+            mountPropagation: HostToContainer
         - args:
           - |
             wget https://github.com/bill-ahmed/qbit-matUI/releases/download/v1.16.4/qbit-matUI_Unix_1.16.4.zip -O /tmp/altui.zip
@@ -122,6 +141,10 @@ spec:
               - SYS_MODULE
         {{- end }}
       volumes:
+        - name: das-root
+          hostPath:
+            path: /mnt/das
+            type: Directory
         - name: config
           persistentVolumeClaim:
             claimName: qbittorrent-config

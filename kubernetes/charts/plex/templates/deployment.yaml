@@ -14,6 +14,26 @@ spec:
       labels:
         app: plex
     spec:
+      initContainers:
+      # Guard: refuse to start (and silently bind the empty root-disk placeholder)
+      # until the external drive is actually mounted. The .mounted sentinel lives
+      # ONLY on /dev/sdb1, so its absence means /mnt/das is unmounted.
+      - name: wait-for-das
+        image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
+        imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Waiting for external drive at /mnt/das (sentinel .mounted)..."
+          until [ -f /das/.mounted ]; do sleep 5; done
+          echo "External drive is mounted; starting Plex."
+        volumeMounts:
+        - name: das-root
+          mountPath: /das
+          readOnly: true
+          # so a remount on the host while we wait propagates in (self-heals)
+          mountPropagation: HostToContainer
       containers:
       - name: plex
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -60,6 +80,10 @@ spec:
         securityContext:
           privileged: true
       volumes:
+      - name: das-root
+        hostPath:
+          path: /mnt/das
+          type: Directory
       - name: plex-config
         hostPath:
           path: /mnt/das/Plex
