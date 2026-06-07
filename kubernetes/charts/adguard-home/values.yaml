@@ -20,6 +20,7 @@ syncapi:
     pullPolicy: IfNotPresent
   metrics:
     enabled: true
+    queryLogLimit: 100
   username: "" # Set in pipeline
   password: "" # Set in pipeline
   darkMode: true
@@ -33,6 +34,6 @@ resources:
   sync:
     requests:
       cpu: 20m
-      memory: 1Gi
+      memory: 256Mi
     limits:
-      memory: 1Gi
+      memory: 256Mi

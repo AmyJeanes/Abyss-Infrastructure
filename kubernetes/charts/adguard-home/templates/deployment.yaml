@@ -71,6 +71,8 @@ spec:
               value: {{ .Values.continueOnError | quote }}
             - name: API_METRICS_ENABLED
               value: {{ .Values.syncapi.metrics.enabled | quote }}
+            - name: API_METRICS_QUERY_LOG_LIMIT
+              value: {{ .Values.syncapi.metrics.queryLogLimit | quote }}
             - name: API_USERNAME
               value: {{ .Values.syncapi.username }}
             - name: API_PASSWORD
