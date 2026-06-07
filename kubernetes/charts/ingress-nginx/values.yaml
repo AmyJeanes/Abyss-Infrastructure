@@ -3,7 +3,7 @@ ingress-nginx:
     resources:
       requests:
         cpu: 100m
-        memory: 250Mi
+        memory: 400Mi
     hostPort:
       enabled: true
     service:
