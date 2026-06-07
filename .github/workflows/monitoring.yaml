@@ -8,6 +8,7 @@ on:
     paths:
       - 'kubernetes/charts/kube-prometheus-stack/**'
       - 'kubernetes/charts/prometheus-vpa/**'
+      - 'kubernetes/charts/metrics-server/**'
       - 'kubernetes/charts/longhorn-persistentvolume/**'
       - '.github/workflows/monitoring.yaml'
 
@@ -87,6 +88,14 @@ jobs:
             prometheus-vpa . \
             --namespace monitoring
         working-directory: kubernetes/charts/prometheus-vpa
+
+      - name: Install metrics-server
+        run: |
+          helm dependency update .
+          helm upgrade --install --wait --atomic --debug \
+            metrics-server . \
+            --namespace kube-system
+        working-directory: kubernetes/charts/metrics-server
 
       - name: Disconnect from Kubernetes
         if: always()
