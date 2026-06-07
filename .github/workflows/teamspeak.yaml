@@ -33,7 +33,7 @@ jobs:
             teamspeak-old-persistentvolume . \
             --namespace default \
             --set name=teamspeak-old \
-            --set disk.capacity=2Gi \
+            --set disk.capacity=4Gi \
             --set volumeHandle=teamspeak-old \
             --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
