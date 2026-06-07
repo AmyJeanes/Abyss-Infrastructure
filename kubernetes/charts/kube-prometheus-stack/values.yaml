@@ -140,7 +140,7 @@ kube-prometheus-stack:
         rules:
         - alert: CPUUsageHigh
           annotations:
-            description: '{{`{{`}} $value | humanizePercentage {{`}}`}} CPU usage relative to requests in namespace {{`{{`}} $labels.namespace {{`}}`}} for container {{`{{`}} $labels.container {{`}}`}} in pod {{`{{`}} $labels.pod {{`}}`}}.'
+            description: '{{ $value | humanizePercentage }} CPU usage relative to requests in namespace {{ $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod }}.'
             summary: Container experienced elevated CPU usage relative to requests
           expr: |-
             sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate) by (namespace, pod, container)
@@ -152,7 +152,7 @@ kube-prometheus-stack:
             severity: warning
         - alert: MemoryUsageHigh
           annotations:
-            description: '{{`{{`}} $value | humanizePercentage {{`}}`}} memory usage relative to requests in namespace {{`{{`}} $labels.namespace {{`}}`}} for container {{`{{`}} $labels.container {{`}}`}} in pod {{`{{`}} $labels.pod {{`}}`}}.'
+            description: '{{ $value | humanizePercentage }} memory usage relative to requests in namespace {{ $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod }}.'
             summary: Container experienced elevated memory usage relative to requests
           expr: |-
             sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace != "kube-system"}) by (namespace, pod, container)
@@ -247,7 +247,7 @@ kube-prometheus-stack:
         rules:
         - alert: AdGuardSyncFailed
           annotations:
-            description: '{{`{{`}} $labels.instance {{`}}`}} has not reported a successful AdGuard sync in the past 10 minutes or the sync failed.'
+            description: '{{ $labels.instance }} has not reported a successful AdGuard sync in the past 10 minutes or the sync failed.'
             summary: AdGuard sync failed or metric missing
           expr: |-
             absent_over_time(adguard_home_sync_sync_successful[10m]) or (adguard_home_sync_sync_successful == 0)
@@ -256,7 +256,7 @@ kube-prometheus-stack:
             severity: critical
         - alert: AdGuardSyncSlow
           annotations:
-            description: 'AdGuard sync on {{`{{`}} $labels.instance {{`}}`}} has taken longer than 5 seconds consistently for 5 minutes.'
+            description: 'AdGuard sync on {{ $labels.instance }} has taken longer than 5 seconds consistently for 5 minutes.'
             summary: AdGuard sync is slow
           expr: |-
             adguard_home_sync_sync_duration_seconds > 5 and on(instance) adguard_home_sync_sync_successful
