@@ -1,4 +1,4 @@
 apiVersion: v2
-name: octoprint-proxy
+name: snapmaker-proxy
 type: application
 version: 1.0.0

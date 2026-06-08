@@ -12,7 +12,7 @@ locals {
     "minecraft-forge",
     "minecraft-vanilla",
     "homeassistant",
-    "octoprint",
+    "snapmaker",
     "plex",
     "outlookcalproxy"
   ]

@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - 'kubernetes/charts/homeassistant-proxy/**'
-      - 'kubernetes/charts/octoprint-proxy/**'
+      - 'kubernetes/charts/snapmaker-proxy/**'
       - 'kubernetes/charts/outlookcal-proxy/**'
       - '.github/workflows/proxies.yaml'
 
@@ -37,15 +37,15 @@ jobs:
             --set ingress.host="homeassistant.${{ vars.HOST }}"
         working-directory: kubernetes/charts/homeassistant-proxy
 
-      - name: Install octoprint-proxy
+      - name: Install snapmaker-proxy
         run: |
           helm dependency update .
           helm upgrade --install --wait --atomic --debug \
-            octoprint-proxy . \
+            snapmaker-proxy . \
             --namespace default \
             -f values.yaml \
-            --set ingress.host="octoprint.${{ vars.HOST }}"
-        working-directory: kubernetes/charts/octoprint-proxy
+            --set ingress.host="snapmaker.${{ vars.HOST }}"
+        working-directory: kubernetes/charts/snapmaker-proxy
 
       - name: Install outlookcal-proxy
         run: |

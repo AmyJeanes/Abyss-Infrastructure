@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: octoprint-proxy
+  name: snapmaker-proxy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: octoprint-proxy
+      app: snapmaker-proxy
   template:
     metadata:
       labels:
-        app: octoprint-proxy
+        app: snapmaker-proxy
     spec:
       containers:
       - name: caddy
@@ -22,4 +22,4 @@ spec:
       volumes:
       - name: caddy-config
         configMap:
-          name: octoprint-proxy-config
+          name: snapmaker-proxy-config
