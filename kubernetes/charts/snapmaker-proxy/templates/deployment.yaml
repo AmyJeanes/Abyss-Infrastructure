@@ -11,10 +11,12 @@ spec:
     metadata:
       labels:
         app: snapmaker-proxy
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       containers:
       - name: caddy
-        image: caddy:latest
+        image: caddy:2.11.4@sha256:cb9d71ad83182011b79355cd57692686374bd78d6fe327efe0ff8507da03ab13
         volumeMounts:
         - name: caddy-config
           mountPath: /etc/caddy/Caddyfile
