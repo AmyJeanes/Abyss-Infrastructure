@@ -11,10 +11,18 @@ longhorn:
     defaultReplicaCount: "1"
     storageMinimalAvailablePercentage: "5"
     storageReservedPercentageForDefaultDisk: "10"
+    v1DataEngine: "false"
     v2DataEngine: "true"
     dataEngineHugepageEnabled: "true"
     dataEngineMemorySize: "1024"
-    dataEngineCPUMask: "0x1"
+    # 0x54 = 3 SPDK reactors (cpu 2/4/6); a single reactor starved frontend RPCs under I/O
+    # bursts → volumes flapped read-only. Map form so the chart renders the per-engine JSON.
+    dataEngineCPUMask:
+      v2: "0x54"
+    guaranteedInstanceManagerCPU:
+      v1: "0"
+      v2: "19"
+    # data-engine-interrupt-mode-enabled=false is set live-only; the chart template has no key for it.
   metrics:
     serviceMonitor:
       enabled: true
