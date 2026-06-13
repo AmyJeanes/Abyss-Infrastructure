@@ -61,7 +61,7 @@ jobs:
             --namespace monitoring \
             --create-namespace \
             --set name=grafana \
-            --set disk.capacity=256Mi \
+            --set disk.capacity=512Mi \
             --set volumeHandle=grafana \
             --set dataEngine=v2
         working-directory: kubernetes/charts/longhorn-persistentvolume
