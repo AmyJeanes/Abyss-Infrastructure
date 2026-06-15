@@ -14,9 +14,10 @@ data:
       restic init
     fi
 
-    # clear any stale lock from a previously-killed run (Forbid concurrency
-    # means there is never a legitimate concurrent backup)
-    restic unlock || true
+    # remove any lock left by a previously-killed run. --remove-all is safe
+    # because Forbid concurrency means there is never a legitimate concurrent
+    # backup holding a lock at this point (plain `unlock` ignores <30min locks).
+    restic unlock --remove-all || true
 
     paths=""
     for app in $BACKUP_APPS; do
