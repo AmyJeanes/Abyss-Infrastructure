@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restic-backup
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 14400
+      template:
+        spec:
+          restartPolicy: Never
+          # restic reads files owned by many app UIDs, so run as root
+          securityContext:
+            runAsUser: 0
+          nodeSelector:
+            kubernetes.io/hostname: {{ required "node is required" .Values.node }}
+          containers:
+          - name: restic
+            image: {{ .Values.image | quote }}
+            command: ["/bin/sh", "/scripts/backup.sh"]
+            envFrom:
+            - secretRef:
+                name: restic-backup-secret
+            env:
+            - name: BACKUP_APPS
+              value: {{ .Values.apps | join " " | quote }}
+            volumeMounts:
+            - name: applocal
+              mountPath: /data
+              readOnly: true
+            - name: script
+              mountPath: /scripts
+            resources:
+              {{- toYaml .Values.resources | nindent 14 }}
+          volumes:
+          - name: applocal
+            hostPath:
+              path: {{ .Values.basePath | quote }}
+              type: Directory
+          - name: script
+            configMap:
+              name: restic-backup-script
+              defaultMode: 0555

@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: restic-backup-script
+data:
+  backup.sh: |
+    #!/bin/sh
+    set -eu
+    echo "restic backup starting $(date -u)"
+
+    # init repo on first run (creates the azure container); idempotent
+    if ! restic cat config >/dev/null 2>&1; then
+      echo "repository not found - initializing"
+      restic init
+    fi
+
+    paths=""
+    for app in $BACKUP_APPS; do
+      paths="$paths /data/$app"
+    done
+
+    echo "backing up:$paths"
+    restic backup --host applocal --tag scheduled $paths
+
+    echo "applying retention"
+    restic forget --host applocal --tag scheduled \
+      --keep-daily {{ .Values.retention.keepDaily }} \
+      --keep-weekly {{ .Values.retention.keepWeekly }} \
+      --keep-monthly {{ .Values.retention.keepMonthly }} \
+      --prune
+
+    echo "snapshots:"
+    restic snapshots --compact --host applocal || true
+    echo "done $(date -u)"

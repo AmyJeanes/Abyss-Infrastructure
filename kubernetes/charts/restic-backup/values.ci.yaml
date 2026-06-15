@@ -1,0 +1,4 @@
+storageAccount:
+  name: dummy
+  key: dummy
+resticPassword: dummy

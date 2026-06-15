@@ -1,0 +1,56 @@
+name: Backup
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [main]
+    paths:
+      - 'kubernetes/charts/restic-backup/**'
+      - '.github/workflows/backup.yaml'
+
+jobs:
+  deploy-backup:
+    name: Deploy Restic Backup
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Get Terraform Outputs
+        uses: ./.github/actions/get-terraform-outputs
+        with:
+          azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+          terraformStorageAccountKey: ${{ secrets.TERRAFORM_STORAGE_ACCOUNT_KEY }}
+
+      - name: Connect to Kubernetes
+        uses: ./.github/actions/connect-k8s
+        with:
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+          hostname: kubernetes-api.${{ vars.HOST }}
+          serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
+          serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
+
+      - name: Install restic-backup
+        env:
+          RESTIC_PASSWORD: ${{ secrets.RESTIC_PASSWORD }}
+          AZ_NAME: ${{ env.storage_account_name }}
+          AZ_KEY: ${{ env.storage_account_key }}
+        run: |
+          # Pass the password via --set-file (raw file contents, no helm comma/
+          # backslash parsing) and from an env var via printf %s (no shell
+          # re-parsing) so any special chars (% # $ , " etc.) survive intact.
+          printf '%s' "$RESTIC_PASSWORD" > /tmp/restic-pw
+          helm upgrade --install --wait --atomic --debug \
+            restic-backup . \
+            --namespace default \
+            -f values.yaml \
+            --set-string storageAccount.name="$AZ_NAME" \
+            --set-string storageAccount.key="$AZ_KEY" \
+            --set-file resticPassword=/tmp/restic-pw
+          rm -f /tmp/restic-pw
+        working-directory: kubernetes/charts/restic-backup
+
+      - name: Disconnect from Kubernetes
+        if: always()
+        uses: ./.github/actions/disconnect-k8s

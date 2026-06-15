@@ -124,6 +124,11 @@ jobs:
     uses: ./.github/workflows/vpa.yaml
     secrets: inherit
 
+  backup:
+    name: Deploy Restic Backup
+    uses: ./.github/workflows/backup.yaml
+    secrets: inherit
+
   postgresql:
     name: Deploy PostgreSQL
     uses: ./.github/workflows/postgresql.yaml

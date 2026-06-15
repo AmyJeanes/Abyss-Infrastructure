@@ -1,0 +1,39 @@
+# Nightly restic backup of selected /mnt/applocal subdirs to Azure Blob.
+schedule: "0 3 * * *" # 03:00 UTC daily
+image: restic/restic:0.18.0
+basePath: /mnt/applocal
+node: ryzen7-5800u-01
+container: restic # azure blob container (restic creates it on first run)
+
+storageAccount:
+  name: ""
+  key: ""
+resticPassword: ""
+
+retention:
+  keepDaily: 7
+  keepWeekly: 4
+  keepMonthly: 6
+
+# Opt-in list: only these subdirs of basePath get backed up. The rest
+# (bluemap render tiles, prometheus TSDB, alertmanager, youtransfer, grafana,
+# qbittorrent-config, minecraft servers) are regenerable and intentionally skipped.
+apps:
+  - postgresql
+  - influxdb
+  - minecraft-vanilla-world
+  - minecraft-forge-world
+  - teamspeak
+  - teamspeak-alt
+  - teamspeak-old
+  - sinusbot
+  - abyss-models
+  - gptapi-models
+  - website-cdn
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    memory: 512Mi
