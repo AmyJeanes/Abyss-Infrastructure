@@ -180,6 +180,24 @@ kube-prometheus-stack:
           for: 5m
           labels:
             severity: warning
+      - name: backup.rules
+        rules:
+        - alert: ResticBackupMissing
+          annotations:
+            summary: No recent successful restic backup
+            description: The restic-backup CronJob has not completed a successful backup in over 26h. Check the CronJob in the default namespace.
+          expr: (kube_cronjob_status_last_successful_time{namespace="default", cronjob="restic-backup"} > 0) and ((time() - kube_cronjob_status_last_successful_time{namespace="default", cronjob="restic-backup"}) > 93600)
+          for: 1h
+          labels:
+            severity: critical
+        - alert: ResticBackupJobFailed
+          annotations:
+            summary: A restic backup job failed
+            description: 'restic backup job {{ $labels.job_name }} is in a Failed state.'
+          expr: kube_job_failed{namespace="default", job_name=~"restic-backup-.*", condition="true"} > 0 and on(job_name) (kube_job_status_start_time{namespace="default"} > (time() - 93600))
+          for: 15m
+          labels:
+            severity: warning
   kube-state-metrics:
     resources:
       requests:
