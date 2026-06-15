@@ -33,7 +33,7 @@ apps:
 
 resources:
   requests:
-    cpu: 100m
-    memory: 256Mi
+    cpu: 250m
+    memory: 2Gi # restic holds an in-memory tree; 512Mi OOM'd on the ~27G first run
   limits:
-    memory: 512Mi
+    memory: 2Gi

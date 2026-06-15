@@ -29,6 +29,9 @@ spec:
             env:
             - name: BACKUP_APPS
               value: {{ .Values.apps | join " " | quote }}
+            # keep Go's heap aggressive to cap restic peak memory
+            - name: GOGC
+              value: "20"
             volumeMounts:
             - name: applocal
               mountPath: /data

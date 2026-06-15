@@ -14,6 +14,10 @@ data:
       restic init
     fi
 
+    # clear any stale lock from a previously-killed run (Forbid concurrency
+    # means there is never a legitimate concurrent backup)
+    restic unlock || true
+
     paths=""
     for app in $BACKUP_APPS; do
       paths="$paths /data/$app"
