@@ -15,6 +15,12 @@ retention:
   keepWeekly: 4
   keepMonthly: 6
 
+# nightly integrity check after each backup: full structure check + a rolling
+# sample of real data (a different slice each night). A failure fails the job
+# -> ResticBackupJobFailed alert, so corruption surfaces before a restore needs it.
+check:
+  readDataSubsetPercent: 2
+
 # Opt-in list: only these subdirs of basePath get backed up. The rest
 # (bluemap render tiles, prometheus TSDB, alertmanager, youtransfer, grafana,
 # qbittorrent-config, minecraft servers) are regenerable and intentionally skipped.

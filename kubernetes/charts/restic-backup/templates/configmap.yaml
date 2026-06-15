@@ -34,6 +34,10 @@ data:
       --keep-monthly {{ .Values.retention.keepMonthly }} \
       --prune
 
+    echo "verifying repository integrity (structure + {{ .Values.check.readDataSubsetPercent }}% rolling data sample)"
+    restic check
+    restic check --read-data-subset={{ .Values.check.readDataSubsetPercent }}%
+
     echo "snapshots:"
     restic snapshots --compact --host applocal || true
     echo "done $(date -u)"
