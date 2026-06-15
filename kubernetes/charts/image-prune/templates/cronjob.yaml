@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: image-prune
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: Never
+          hostPID: true
+          nodeSelector:
+            kubernetes.io/hostname: {{ required "node is required" .Values.node }}
+          containers:
+          - name: prune
+            image: {{ .Values.image | quote }}
+            securityContext:
+              privileged: true
+            # nsenter into the host (PID 1) to run the microk8s containerd
+            # prune, clearing unreferenced images from Renovate digest churn
+            # that otherwise fill root and cause DiskPressure -> dqlite lockups.
+            command:
+            - nsenter
+            - "-t"
+            - "1"
+            - "-m"
+            - "-u"
+            - "-i"
+            - "-n"
+            - "-p"
+            - "--"
+            - /snap/bin/microk8s.ctr
+            - images
+            - prune
+            - --all
+            resources:
+              {{- toYaml .Values.resources | nindent 14 }}

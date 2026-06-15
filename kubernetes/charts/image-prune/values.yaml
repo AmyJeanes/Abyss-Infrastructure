@@ -1,0 +1,11 @@
+# Periodically prune unreferenced containerd images (Renovate digest churn)
+# that otherwise fill root and trigger DiskPressure -> dqlite lockups.
+schedule: "30 4 * * *" # 04:30 UTC daily
+image: debian:bookworm-slim
+node: ryzen7-5800u-01
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    memory: 128Mi

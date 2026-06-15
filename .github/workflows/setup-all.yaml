@@ -129,6 +129,11 @@ jobs:
     uses: ./.github/workflows/backup.yaml
     secrets: inherit
 
+  image-prune:
+    name: Deploy Image Prune
+    uses: ./.github/workflows/image-prune.yaml
+    secrets: inherit
+
   postgresql:
     name: Deploy PostgreSQL
     uses: ./.github/workflows/postgresql.yaml

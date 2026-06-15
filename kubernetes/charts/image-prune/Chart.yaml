@@ -1,0 +1,4 @@
+apiVersion: v2
+name: image-prune
+type: application
+version: 1.0.0
