@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - 'kubernetes/charts/youtransfer/**'
-      - 'kubernetes/charts/longhorn-persistentvolume/**'
+      - 'kubernetes/charts/local-persistentvolume/**'
       - '.github/workflows/youtransfer.yaml'
 
 jobs:
@@ -32,10 +32,8 @@ jobs:
             youtransfer-persistentvolume . \
             --namespace default \
             --set name=youtransfer \
-            --set disk.capacity=16Mi \
-            --set volumeHandle=youtransfer \
-            --set dataEngine=v2
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+            --set disk.capacity=10Gi
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install youtransfer
         run: |

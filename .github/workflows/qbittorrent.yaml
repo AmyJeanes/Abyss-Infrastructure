@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - 'kubernetes/charts/qbittorrent/**'
-      - 'kubernetes/charts/longhorn-persistentvolume/**'
+      - 'kubernetes/charts/local-persistentvolume/**'
       - '.github/workflows/qbittorrent.yaml'
 
 jobs:
@@ -32,10 +32,8 @@ jobs:
             qbittorrent-config-persistentvolume . \
             --namespace default \
             --set name=qbittorrent-config \
-            --set disk.capacity=64Mi \
-            --set volumeHandle=qbittorrent-config \
-            --set dataEngine=v2
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+            --set disk.capacity=1Gi
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install qbittorrent
         run: |

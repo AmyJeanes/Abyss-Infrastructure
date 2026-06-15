@@ -11,13 +11,6 @@
   },
   "packageRules": [
     {
-      "description": "Longhorn v2 data engine cannot live-upgrade. Walk these through manually with the longhorn-upgrade Claude skill.",
-      "matchPackageNames": ["longhorn"],
-      "matchDatasources": ["helm"],
-      "automerge": false,
-      "labels": ["needs-manual-merge", "longhorn"]
-    },
-    {
       "description": "TeamSpeak 6 server only ships pre-release tags (6.0.0-betaN). With semver/docker versioning the -betaN suffix is compared lexically, so 6.0.0-beta10 sorts BELOW 6.0.0-beta9 and license-refresh bumps are missed. Use regex versioning with a numeric <build> group so the beta number orders numerically, and automerge so refreshes land before the license expires. Revisit when TeamSpeak 6 leaves beta.",
       "matchPackageNames": ["teamspeaksystems/teamspeak6-server"],
       "matchDatasources": ["docker"],

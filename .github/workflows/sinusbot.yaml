@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - 'kubernetes/charts/sinusbot/**'
-      - 'kubernetes/charts/longhorn-persistentvolume/**'
+      - 'kubernetes/charts/local-persistentvolume/**'
       - '.github/workflows/sinusbot.yaml'
 
 jobs:
@@ -32,10 +32,8 @@ jobs:
             sinusbot-persistentvolume . \
             --namespace default \
             --set name=sinusbot \
-            --set disk.capacity=4Gi \
-            --set volumeHandle=sinusbot \
-            --set dataEngine=v2
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+            --set disk.capacity=6Gi
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install sinusbot
         run: |

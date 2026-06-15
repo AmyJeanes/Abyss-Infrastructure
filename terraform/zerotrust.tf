@@ -36,11 +36,6 @@ locals {
       service = "tcp://kubernetes:443"
       secure  = true
     }
-    "longhorn" = {
-      name    = "Longhorn"
-      service = "http://longhorn-frontend.longhorn-system"
-      secure  = true
-    }
     "prometheus" = {
       name    = "Prometheus"
       service = "http://kube-prometheus-stack-prometheus.monitoring:9090"

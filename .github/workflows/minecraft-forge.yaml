@@ -32,10 +32,8 @@ jobs:
             minecraft-forge-server-persistentvolume . \
             --namespace default \
             --set name=minecraft-forge-server \
-            --set disk.capacity=15Gi \
-            --set volumeHandle=minecraft-forge-server \
-            --set dataEngine=v2
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+            --set disk.capacity=8Gi
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install persistent volume for minecraft-forge-world
         run: |
@@ -43,10 +41,8 @@ jobs:
             minecraft-forge-world-persistentvolume . \
             --namespace default \
             --set name=minecraft-forge-world \
-            --set disk.capacity=15Gi \
-            --set volumeHandle=minecraft-forge-world \
-            --set dataEngine=v2
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+            --set disk.capacity=15Gi
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install persistent volume for minecraft-forge-bluemap
         run: |
@@ -54,10 +50,8 @@ jobs:
             minecraft-forge-bluemap-persistentvolume . \
             --namespace default \
             --set name=minecraft-forge-bluemap \
-            --set disk.capacity=25Gi \
-            --set volumeHandle=minecraft-forge-bluemap \
-            --set dataEngine=v2
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+            --set disk.capacity=30Gi
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install minecraft-forge
         run: |

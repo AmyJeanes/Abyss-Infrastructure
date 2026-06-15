@@ -119,33 +119,24 @@ jobs:
     uses: ./.github/workflows/qbittorrent.yaml
     secrets: inherit
 
-  longhorn:
-    name: Deploy Longhorn
-    needs: ingress-certificates
-    uses: ./.github/workflows/longhorn.yaml
-    secrets: inherit
-
   vpa:
     name: Deploy Vertical Pod Autoscaler
-    needs: longhorn
     uses: ./.github/workflows/vpa.yaml
     secrets: inherit
 
   postgresql:
     name: Deploy PostgreSQL
-    needs: longhorn
     uses: ./.github/workflows/postgresql.yaml
     secrets: inherit
 
   influxdb:
     name: Deploy InfluxDB
-    needs: longhorn
     uses: ./.github/workflows/influxdb.yaml
     secrets: inherit
 
   monitoring:
     name: Deploy Monitoring Stack
-    needs: [longhorn, ingress-certificates]
+    needs: ingress-certificates
     uses: ./.github/workflows/monitoring.yaml
     secrets: inherit
 
@@ -163,13 +154,13 @@ jobs:
 
   minecraft-forge:
     name: Deploy Minecraft Forge
-    needs: [longhorn, ingress-certificates]
+    needs: ingress-certificates
     uses: ./.github/workflows/minecraft-forge.yaml
     secrets: inherit
 
   minecraft-vanilla:
     name: Deploy Minecraft Vanilla
-    needs: [longhorn, ingress-certificates]
+    needs: ingress-certificates
     uses: ./.github/workflows/minecraft-vanilla.yaml
     secrets: inherit
 

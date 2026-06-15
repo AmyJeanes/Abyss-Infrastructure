@@ -9,7 +9,7 @@ on:
       - 'kubernetes/charts/kube-prometheus-stack/**'
       - 'kubernetes/charts/prometheus-vpa/**'
       - 'kubernetes/charts/metrics-server/**'
-      - 'kubernetes/charts/longhorn-persistentvolume/**'
+      - 'kubernetes/charts/local-persistentvolume/**'
       - '.github/workflows/monitoring.yaml'
 
 jobs:
@@ -35,11 +35,9 @@ jobs:
             --namespace monitoring \
             --create-namespace \
             --set name=prometheus \
-            --set disk.capacity=20Gi \
-            --set volumeHandle=prometheus \
-            --set dataEngine=v2 \
+            --set disk.capacity=25Gi \
             --set persistentVolumeClaim.enabled=false
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install persistent volume for alertmanager
         run: |
@@ -48,11 +46,9 @@ jobs:
             --namespace monitoring \
             --create-namespace \
             --set name=alertmanager \
-            --set disk.capacity=512Mi \
-            --set volumeHandle=alertmanager \
-            --set dataEngine=v2 \
+            --set disk.capacity=1Gi \
             --set persistentVolumeClaim.enabled=false
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install persistent volume for grafana
         run: |
@@ -61,10 +57,8 @@ jobs:
             --namespace monitoring \
             --create-namespace \
             --set name=grafana \
-            --set disk.capacity=512Mi \
-            --set volumeHandle=grafana \
-            --set dataEngine=v2
-        working-directory: kubernetes/charts/longhorn-persistentvolume
+            --set disk.capacity=1Gi
+        working-directory: kubernetes/charts/local-persistentvolume
 
       - name: Install prometheus
         run: |

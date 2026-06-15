@@ -1,0 +1,8 @@
+persistentVolumeClaim:
+  enabled: true
+disk: {}
+node: ryzen7-5800u-01
+basePath: /mnt/applocal
+storageClass:
+  create: false
+  name: local-storage
