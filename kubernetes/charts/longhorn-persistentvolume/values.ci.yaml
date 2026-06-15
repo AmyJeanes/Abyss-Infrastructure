@@ -1,4 +1,0 @@
-name: dummy
-disk:
-  capacity: 1Gi
-volumeHandle: dummy

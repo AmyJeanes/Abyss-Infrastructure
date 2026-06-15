@@ -1,4 +1,0 @@
-persistentVolumeClaim:
-  enabled: true
-disk: {}
-dataEngine: v1
