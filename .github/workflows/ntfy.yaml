@@ -36,8 +36,8 @@ jobs:
             --namespace default \
             -f values.yaml \
             --set ingress.host="ntfy.${{ vars.HOST }}" \
-            --set-string auth.publishHash="$NTFY_PUBLISH_HASH" \
-            --set-string auth.readHash="$NTFY_READ_HASH"
+            --set-string auth.passwordHashes.ha="$NTFY_PUBLISH_HASH" \
+            --set-string auth.passwordHashes.ci="$NTFY_READ_HASH"
         working-directory: kubernetes/charts/ntfy
 
       - name: Disconnect from Kubernetes

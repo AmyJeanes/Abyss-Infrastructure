@@ -32,14 +32,22 @@ spec:
           value: /var/lib/ntfy/user.db
         - name: NTFY_CACHE_FILE
           value: /var/cache/ntfy/cache.db
+        {{- with .Values.auth.defaultAccess }}
         - name: NTFY_AUTH_DEFAULT_ACCESS
-          value: deny-all
+          value: {{ . | quote }}
+        {{- end }}
+        {{- if .Values.auth.users }}
         # Users and access are reconciled from config into the auth db on every
         # start, so the emptyDirs below can be wiped without losing them.
         - name: NTFY_AUTH_USERS
-          value: {{ printf "ha:%s:user,ci:%s:user" (required "auth.publishHash is required" .Values.auth.publishHash) (required "auth.readHash is required" .Values.auth.readHash) | quote }}
+          value: {{ include "ntfy.authUsers" . | quote }}
         - name: NTFY_AUTH_ACCESS
-          value: {{ printf "ha:%s:wo,ci:%s:ro" (required "topic is required" .Values.topic) .Values.topic | quote }}
+          value: {{ include "ntfy.authAccess" . | quote }}
+        {{- end }}
+        {{- if .Values.auth.tokens }}
+        - name: NTFY_AUTH_TOKENS
+          value: {{ include "ntfy.authTokens" . | quote }}
+        {{- end }}
         livenessProbe:
           httpGet:
             path: /v1/health
