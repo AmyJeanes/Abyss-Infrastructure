@@ -95,6 +95,12 @@ jobs:
     uses: ./.github/workflows/convertx.yaml
     secrets: inherit
 
+  ntfy:
+    name: Deploy ntfy
+    needs: ingress-certificates
+    uses: ./.github/workflows/ntfy.yaml
+    secrets: inherit
+
   stirling-pdf:
     name: Deploy Stirling-PDF
     needs: ingress-certificates
