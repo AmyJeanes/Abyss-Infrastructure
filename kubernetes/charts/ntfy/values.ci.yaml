@@ -1,0 +1,6 @@
+ingress:
+  host: "ntfy.example.com"
+auth:
+  passwordHashes:
+    ha: "$2a$10$dummydummydummydummyOdummydummydummydummydummydummyd."
+    ci: "$2a$10$dummydummydummydummyOdummydummydummydummydummydummyd."

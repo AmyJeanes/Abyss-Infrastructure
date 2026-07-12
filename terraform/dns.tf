@@ -8,6 +8,7 @@ locals {
     "send",
     "ts",
     "convert",
+    "ntfy",
     "pdf",
     "minecraft-forge",
     "minecraft-vanilla",

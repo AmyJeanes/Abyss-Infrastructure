@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ntfy
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ntfy
+  template:
+    metadata:
+      labels:
+        app: ntfy
+    spec:
+      containers:
+      - name: ntfy
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        args: ["serve"]
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        env:
+        - name: NTFY_BASE_URL
+          value: {{ printf "https://%s" (required "ingress.host is required" .Values.ingress.host) | quote }}
+        - name: NTFY_LISTEN_HTTP
+          value: ":80"
+        - name: NTFY_BEHIND_PROXY
+          value: "true"
+        - name: NTFY_AUTH_FILE
+          value: /var/lib/ntfy/user.db
+        - name: NTFY_CACHE_FILE
+          value: /var/cache/ntfy/cache.db
+        {{- with .Values.auth.defaultAccess }}
+        - name: NTFY_AUTH_DEFAULT_ACCESS
+          value: {{ . | quote }}
+        {{- end }}
+        {{- if .Values.auth.users }}
+        # Users and access are reconciled from config into the auth db on every
+        # start, so the emptyDirs below can be wiped without losing them.
+        - name: NTFY_AUTH_USERS
+          value: {{ include "ntfy.authUsers" . | quote }}
+        - name: NTFY_AUTH_ACCESS
+          value: {{ include "ntfy.authAccess" . | quote }}
+        {{- end }}
+        {{- if .Values.auth.tokens }}
+        - name: NTFY_AUTH_TOKENS
+          value: {{ include "ntfy.authTokens" . | quote }}
+        {{- end }}
+        livenessProbe:
+          httpGet:
+            path: /v1/health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 15
+          timeoutSeconds: 3
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /v1/health
+            port: 80
+          initialDelaySeconds: 2
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: lib
+          mountPath: /var/lib/ntfy
+        - name: cache
+          mountPath: /var/cache/ntfy
+      volumes:
+      - name: lib
+        emptyDir: {}
+      - name: cache
+        emptyDir: {}

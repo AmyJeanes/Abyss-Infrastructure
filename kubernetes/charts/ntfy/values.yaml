@@ -1,0 +1,24 @@
+image:
+  repository: binwiederhier/ntfy
+  tag: v2.26.0@sha256:a6d335064ae927c4dbef118e1fa39656b3d2e01472b2a82af5915d5cebfe815f
+ingress: {}
+auth:
+  # Global fallback when no ACL entry matches: read-write | read-only | write-only | deny-all
+  defaultAccess: deny-all
+  # Users and their per-topic access (topics may use a "*" wildcard;
+  # permission: read-write | read-only | write-only | deny). Empty users => a
+  # public instance governed solely by defaultAccess.
+  users:
+    - name: ha
+      role: user # user | admin (admin = read-write to all topics)
+      access:
+        - { topic: steam-release, permission: write-only }
+    - name: ci
+      role: user
+      access:
+        - { topic: steam-release, permission: read-only }
+  # bcrypt hashes keyed by user name, injected by the pipeline so they stay out
+  # of git: { ha: "$2a$...", ci: "$2a$..." }
+  passwordHashes: {}
+  # Optional API tokens for Bearer-auth clients: - { user: ci, token: "tk_...", label: "..." }
+  tokens: []
