@@ -1,0 +1,5 @@
+ingress:
+  host: "ntfy.example.com"
+auth:
+  publishHash: "$2a$10$dummydummydummydummyOdummydummydummydummydummydummyd."
+  readHash: "$2a$10$dummydummydummydummyOdummydummydummydummydummydummyd."

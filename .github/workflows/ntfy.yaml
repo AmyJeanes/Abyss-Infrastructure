@@ -1,0 +1,45 @@
+name: ntfy
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [main]
+    paths:
+      - 'kubernetes/charts/ntfy/**'
+      - '.github/workflows/ntfy.yaml'
+
+jobs:
+  deploy-ntfy:
+    name: Deploy ntfy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+
+      - name: Connect to Kubernetes
+        uses: ./.github/actions/connect-k8s
+        with:
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+          hostname: kubernetes-api.${{ vars.HOST }}
+          serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
+          serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
+
+      - name: Install ntfy
+        # Passed via env (not inline --set) so the bcrypt '$' chars aren't shell-expanded.
+        env:
+          NTFY_PUBLISH_HASH: ${{ secrets.NTFY_PUBLISH_HASH }}
+          NTFY_READ_HASH: ${{ secrets.NTFY_READ_HASH }}
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            ntfy . \
+            --namespace default \
+            -f values.yaml \
+            --set ingress.host="ntfy.${{ vars.HOST }}" \
+            --set-string auth.publishHash="$NTFY_PUBLISH_HASH" \
+            --set-string auth.readHash="$NTFY_READ_HASH"
+        working-directory: kubernetes/charts/ntfy
+
+      - name: Disconnect from Kubernetes
+        if: always()
+        uses: ./.github/actions/disconnect-k8s
