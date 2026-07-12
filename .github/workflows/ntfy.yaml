@@ -28,16 +28,16 @@ jobs:
       - name: Install ntfy
         # Passed via env (not inline --set) so the bcrypt '$' chars aren't shell-expanded.
         env:
-          NTFY_PUBLISH_HASH: ${{ secrets.NTFY_PUBLISH_HASH }}
-          NTFY_READ_HASH: ${{ secrets.NTFY_READ_HASH }}
+          HA_HASH: ${{ secrets.NTFY_HA_HASH }}
+          CI_HASH: ${{ secrets.NTFY_CI_HASH }}
         run: |
           helm upgrade --install --wait --atomic --debug \
             ntfy . \
             --namespace default \
             -f values.yaml \
             --set ingress.host="ntfy.${{ vars.HOST }}" \
-            --set-string auth.passwordHashes.ha="$NTFY_PUBLISH_HASH" \
-            --set-string auth.passwordHashes.ci="$NTFY_READ_HASH"
+            --set-string auth.passwordHashes.ha="$HA_HASH" \
+            --set-string auth.passwordHashes.ci="$CI_HASH"
         working-directory: kubernetes/charts/ntfy
 
       - name: Disconnect from Kubernetes
