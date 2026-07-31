@@ -34,18 +34,34 @@ runs:
       echo "CLOUDFLARED_PID=$CLOUDFLARED_PID" >> $GITHUB_ENV
       echo "CLOUDFLARED_LOG=$LOG_FILE" >> $GITHUB_ENV
       
-      sleep 5
-      
-      if ps -p $CLOUDFLARED_PID > /dev/null; then
-        echo "Cloudflared is running successfully"
-        # Show initial log content
-        echo "Initial log output:"
-        cat "$LOG_FILE"
-      else
-        echo "Cloudflared failed to start. Log output:"
+      # cloudflared binds the port before the tunnel carries traffic, so a live
+      # PID proves nothing - wait for the API server to actually answer, or a
+      # slow tunnel reaches helm as "Kubernetes cluster unreachable".
+      ready=false
+      for i in $(seq 1 30); do
+        if ! ps -p $CLOUDFLARED_PID > /dev/null; then
+          echo "Cloudflared exited after ${i}s. Log output:"
+          cat "$LOG_FILE"
+          exit 1
+        fi
+
+        code=$(curl -sk --max-time 3 -o /dev/null -w '%{http_code}' https://127.0.0.1:6443/version || true)
+        if [ -n "$code" ] && [ "$code" != "000" ]; then
+          echo "Cloudflared proxy ready after ${i}s (API server returned HTTP $code)"
+          ready=true
+          break
+        fi
+
+        sleep 1
+      done
+
+      if [ "$ready" != true ]; then
+        echo "Cloudflared proxy never reached the API server within 30s. Log output:"
         cat "$LOG_FILE"
         exit 1
       fi
+
+      cat "$LOG_FILE"
     env:
       TUNNEL_SERVICE_HOSTNAME: ${{ inputs.hostname }}
       TUNNEL_SERVICE_URL: 127.0.0.1:6443
