@@ -1,7 +1,7 @@
 enabled: true
 image:
   repository: itzg/minecraft-server
-  tag: java21@sha256:73c074198db3eee6dc184514457077d4cc70e0137069575d77c028474ce6d3a9
+  tag: java21@sha256:6f2db1af7f424006b8a5b2b9bec4224bd682eb81213f39b28ba731d81aa63e49
   pullPolicy: IfNotPresent
 filebrowser:
   image:
