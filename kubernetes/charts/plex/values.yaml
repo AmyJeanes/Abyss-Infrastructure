@@ -1,6 +1,6 @@
 image:
-  repository: ghcr.io/skjnldsv/docker-plex
-  tag: main@sha256:bc25558655ed560d521ef0a1f2325a9387be74e787680c61ede74fe34044b693
+  repository: ghcr.io/amyjeanes/plex-vaapi
+  tag: latest@sha256:b0857480c2bba259b9f2780864ae8dbd977e06805ddf184ddc80525e2959a72e
   pullPolicy: IfNotPresent
 initContainer:
   image:
