@@ -2,7 +2,7 @@
 # Self-contained musl AMD VAAPI stack baked onto linuxserver/plex. musl keeps it isolated
 # from Plex's bundled libs — a glibc Mesa driver shares sonames with them and segfaults.
 
-FROM alpine:edge@sha256:d77617aef5805191da75fbbfe2f9dc2043582ecad0f4d381b27c151034765a76 AS vaapi
+FROM alpine:edge@sha256:020dfcbaaf4cc1078bf2d9c7ba31a8466e334061dcd2f248001d68f79e52c000 AS vaapi
 RUN apk add --no-cache mesa-va-gallium \
  && apk add --no-cache -X https://dl-cdn.alpinelinux.org/alpine/edge/testing libva-utils
 RUN set -eux; \
