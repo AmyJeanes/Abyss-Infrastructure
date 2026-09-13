@@ -1,0 +1,53 @@
+name: Spoolman
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [main]
+    paths:
+      - 'kubernetes/charts/spoolman/**'
+      - 'kubernetes/charts/local-persistentvolume/**'
+      - '.github/workflows/spoolman.yaml'
+
+jobs:
+  deploy-spoolman:
+    name: Deploy Spoolman
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Connect to Kubernetes
+        uses: ./.github/actions/connect-k8s
+        with:
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+          hostname: kubernetes-api.${{ vars.HOST }}
+          serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
+          serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
+
+      - name: Install persistent volume for spoolman
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            spoolman-persistentvolume . \
+            --namespace default \
+            --set name=spoolman \
+            --set disk.capacity=2Gi
+        working-directory: kubernetes/charts/local-persistentvolume
+
+      - name: Install spoolman
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            spoolman . \
+            --namespace default \
+            --set ingress.host="spoolman.${{ vars.HOST }}"
+        working-directory: kubernetes/charts/spoolman
+
+      - name: Wait for spoolman certificate to be ready
+        uses: ./.github/actions/wait-kube-certificate
+        with:
+          name: "spoolman-tls"
+
+      - name: Disconnect from Kubernetes
+        if: always()
+        uses: ./.github/actions/disconnect-k8s

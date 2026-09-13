@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spoolman
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: spoolman
+  template:
+    metadata:
+      labels:
+        app: spoolman
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: spoolman
+        image: {{ .Values.image.repository }}:{{ required "image.tag is required" .Values.image.tag }}
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        env:
+        - name: TZ
+          value: {{ required "timezone is required" .Values.timezone | quote }}
+        - name: SPOOLMAN_METRICS_ENABLED
+          value: 'true'
+        volumeMounts:
+        - name: data
+          mountPath: /home/app/.local/share/spoolman
+        resources: {{ toYaml .Values.resources | nindent 10 }}
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: spoolman
