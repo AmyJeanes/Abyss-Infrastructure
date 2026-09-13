@@ -15,7 +15,8 @@ locals {
     "homeassistant",
     "snapmaker",
     "plex",
-    "outlookcalproxy"
+    "outlookcalproxy",
+    "spoolman"
   ]
   proxied_records = {
     "cdn" = true,
