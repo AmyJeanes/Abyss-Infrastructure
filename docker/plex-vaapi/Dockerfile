@@ -22,7 +22,7 @@ RUN set -eux; \
     cp -aL /usr/share/libdrm/amdgpu.ids "$out/share/libdrm/"; \
     cp -aL /usr/bin/vainfo "$out/bin/vainfo"
 
-FROM lscr.io/linuxserver/plex:latest@sha256:06e07af2851e6a822e89062b148435495dd794d6d5aaf36247dee05fb3dcc4b8
+FROM lscr.io/linuxserver/plex:latest@sha256:8f655bad7dcbc5398a78f70a5af12600b4ed3424f901566ed1eaa6710e9e2334
 COPY --from=vaapi /vaapi/lib/ /usr/lib/plex-vaapi/lib/
 COPY --from=vaapi /vaapi/bin/ /usr/lib/plex-vaapi/bin/
 COPY --from=vaapi /vaapi/share/libdrm/amdgpu.ids /usr/share/libdrm/amdgpu.ids
