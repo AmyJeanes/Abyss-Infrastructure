@@ -35,6 +35,9 @@ spec:
               port: 3000
             timeoutSeconds: 1
           resources: {{ toYaml .Values.resources.adguardhome | nindent 12 }}
+          volumeMounts:
+            - name: work
+              mountPath: /opt/adguardhome/work
         - name: adguard-home-sync
           image: {{ .Values.syncapi.image.repository }}:{{ .Values.syncapi.image.tag }}
           imagePullPolicy: {{ .Values.syncapi.image.pullPolicy }}
@@ -90,3 +93,8 @@ spec:
               port: 8080
             timeoutSeconds: 1
           resources: {{ toYaml .Values.resources.sync | nindent 12 }}
+      volumes:
+        # Query log and stats are regenerable; the cap evicts the pod rather than letting them fill the node's root disk.
+        - name: work
+          emptyDir:
+            sizeLimit: {{ .Values.workSizeLimit }}

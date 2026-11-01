@@ -4,6 +4,7 @@ metadata:
   name: adguard-home-external
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
     - port: 53
       targetPort: 53

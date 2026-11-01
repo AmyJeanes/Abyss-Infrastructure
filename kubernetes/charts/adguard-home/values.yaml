@@ -24,6 +24,7 @@ syncapi:
   username: "" # Set in pipeline
   password: "" # Set in pipeline
   darkMode: true
+workSizeLimit: 2Gi
 resources:
   adguardhome:
     requests:
