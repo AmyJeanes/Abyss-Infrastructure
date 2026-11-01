@@ -9,6 +9,7 @@ on:
       - 'kubernetes/charts/kube-prometheus-stack/**'
       - 'kubernetes/charts/prometheus-vpa/**'
       - 'kubernetes/charts/metrics-server/**'
+      - 'kubernetes/charts/x509-certificate-exporter/**'
       - 'kubernetes/charts/local-persistentvolume/**'
       - '.github/workflows/monitoring.yaml'
 
@@ -89,6 +90,14 @@ jobs:
             metrics-server . \
             --namespace kube-system
         working-directory: kubernetes/charts/metrics-server
+
+      - name: Install x509-certificate-exporter
+        run: |
+          helm dependency update .
+          helm upgrade --install --wait --atomic --debug \
+            x509-certificate-exporter . \
+            --namespace monitoring
+        working-directory: kubernetes/charts/x509-certificate-exporter
 
       - name: Disconnect from Kubernetes
         if: always()

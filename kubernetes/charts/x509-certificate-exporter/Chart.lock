@@ -1,0 +1,6 @@
+dependencies:
+- name: x509-certificate-exporter
+  repository: https://charts.enix.io
+  version: 4.2.3
+digest: sha256:23327b9f7a16d91c4831cdf0e4a54021420b60fdad2915e859dfbabc5a0ec20e
+generated: "2026-11-01T20:14:27.476276Z"

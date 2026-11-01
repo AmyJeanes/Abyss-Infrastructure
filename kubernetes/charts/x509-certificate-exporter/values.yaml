@@ -1,0 +1,20 @@
+x509-certificate-exporter:
+  secretsExporter:
+    resources:
+      requests:
+        cpu: 20m
+        memory: 64Mi
+      limits:
+        memory: 64Mi
+  hostPathsExporter:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 40Mi
+      limits:
+        memory: 40Mi
+    daemonSets:
+      # microk8s auto-renews server.crt but never its CA, which silently takes down the whole control plane when it expires.
+      microk8s:
+        watchDirectories:
+          - /var/snap/microk8s/current/certs
