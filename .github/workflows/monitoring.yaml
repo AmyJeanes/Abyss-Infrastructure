@@ -71,8 +71,7 @@ jobs:
             --set kube-prometheus-stack.alertmanager.config.global.pagerduty_url="${{ vars.PAGERDUTY_URL }}" \
             --set kube-prometheus-stack.alertmanager.config.receivers[0].pagerduty_configs[0].routing_key="${{ secrets.PAGERDUTY_INTEGRATION_KEY }}" \
             --set kube-prometheus-stack.alertmanager.config.receivers[1].webhook_configs[0].url="${{ secrets.DEAD_MANS_SNITCH_WEBHOOK_URL }}" \
-            --set kube-prometheus-stack.grafana.ingress.hosts[0]="grafana.${{ vars.HOST }}" \
-            --set kube-prometheus-stack.grafana.ingress.tls[0].hosts[0]="grafana.${{ vars.HOST }}" \
+            --set kube-prometheus-stack.grafana."grafana\.ini".server.domain="grafana.${{ vars.HOST }}" \
             --set kube-prometheus-stack.grafana.adminPassword="${{ secrets.GRAFANA_ADMIN_PASSWORD }}"
         working-directory: kubernetes/charts/kube-prometheus-stack
 

@@ -11,10 +11,4 @@ kube-prometheus-stack:
           webhook_configs:
             - url: "https://example.com/webhook"
   grafana:
-    ingress:
-      hosts:
-        - "grafana.example.com"
-      tls:
-        - hosts:
-            - "grafana.example.com"
     adminPassword: "dummy-password"

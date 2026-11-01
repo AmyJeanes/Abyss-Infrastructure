@@ -82,11 +82,9 @@ kube-prometheus-stack:
       datasources:
         enabled: true
         searchNamespace: ALL
+    # Served through the Cloudflare tunnel straight to the service, so no ingress or cert.
     ingress:
-      enabled: true
-      ingressClassName: nginx
-      tls:
-      - secretName: grafana-tls
+      enabled: false
     env:
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: panodata-map-panel
   prometheus:
