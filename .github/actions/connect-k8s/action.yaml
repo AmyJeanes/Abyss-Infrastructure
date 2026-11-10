@@ -69,7 +69,7 @@ runs:
       TUNNEL_SERVICE_TOKEN_SECRET: ${{ inputs.serviceTokenSecret }}
 
   - name: Login to Kubernetes
-    uses: azure/k8s-set-context@8698eba2499e9012f0d5085f8798077cce4bc526 # v5
+    uses: azure/k8s-set-context@5f008dfddbbc9df61ba40a7aaa912c6033ba62fc # v5
     with:
       method: kubeconfig
       kubeconfig: "${{ inputs.kubeconfig }}"
