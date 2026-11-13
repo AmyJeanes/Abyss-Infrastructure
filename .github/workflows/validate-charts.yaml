@@ -106,4 +106,4 @@ jobs:
             }
           }
         env:
-          KUBERNETES_VERSION: "1.31.0"
+          KUBERNETES_VERSION: "1.36.2"
