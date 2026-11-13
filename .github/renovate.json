@@ -11,6 +11,11 @@
   },
   "packageRules": [
     {
+      "description": "CI runs OpenTofu, which installs providers from the OpenTofu registry. It mirrors new releases hours after registry.terraform.io, so look versions up there to avoid proposing ones tofu cannot download yet.",
+      "matchDatasources": ["terraform-provider"],
+      "registryUrls": ["https://registry.opentofu.org"]
+    },
+    {
       "description": "TeamSpeak 6 server only ships pre-release tags (6.0.0-betaN). With semver/docker versioning the -betaN suffix is compared lexically, so 6.0.0-beta10 sorts BELOW 6.0.0-beta9 and license-refresh bumps are missed. Use regex versioning with a numeric <build> group so the beta number orders numerically, and automerge so refreshes land before the license expires. Revisit when TeamSpeak 6 leaves beta.",
       "matchPackageNames": ["teamspeaksystems/teamspeak6-server"],
       "matchDatasources": ["docker"],
