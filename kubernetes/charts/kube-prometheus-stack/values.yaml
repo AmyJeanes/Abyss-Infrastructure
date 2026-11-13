@@ -72,9 +72,9 @@ kube-prometheus-stack:
     resources:
       requests:
         cpu: 50m
-        memory: 300Mi
+        memory: 512Mi
       limits:
-        memory: 300Mi
+        memory: 512Mi
     # The microk8s cluster CA has no keyUsage extension, which Python 3.13+ rejects under its
     # default strict X.509 checks (see AGENTS.md); the chain is still verified against the CA.
     sidecar:
