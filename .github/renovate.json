@@ -16,6 +16,26 @@
       "matchDatasources": ["docker"],
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-beta(?<build>\\d+)$",
       "automerge": true
+    },
+    {
+      "description": "The PostgreSQL image refuses to start on a data directory from another major, so a major needs a planned dump and restore (or pg_upgrade). Hold majors for approval on the dependency dashboard.",
+      "matchPackageNames": ["postgres"],
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "InfluxDB 3 is a different product with no in-place upgrade from 2.x.",
+      "matchPackageNames": ["influxdb"],
+      "matchDatasources": ["docker"],
+      "allowedVersions": "<3"
+    },
+    {
+      "description": "InfluxDB 2.x minors migrate the metadata store one way, so review them instead of automerging.",
+      "matchPackageNames": ["influxdb"],
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": false
     }
   ]
 }
