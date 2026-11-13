@@ -1,7 +1,7 @@
 # Stay on InfluxDB 2.x: 3.x is a different product with no in-place upgrade.
 image:
   repository: influxdb
-  tag: 2.7.12@sha256:b8d940ca9376f85118260f5b6bd236b8a00b1749c3350c5578d4cde8e27f31f2
+  tag: 2.9.1@sha256:e4572d094ac3272f06528ea904ce6b4cb3bb19be2db3b3b1acbd27ba5c3a73e2
 # Only used to initialise an empty volume.
 setup:
   username: admin
