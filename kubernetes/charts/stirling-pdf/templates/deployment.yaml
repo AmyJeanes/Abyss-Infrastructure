@@ -43,3 +43,10 @@ spec:
           tcpSocket:
             port: 8080
           timeoutSeconds: 1
+        startupProbe:
+          failureThreshold: 30
+          initialDelaySeconds: 0
+          periodSeconds: 5
+          tcpSocket:
+            port: 8080
+          timeoutSeconds: 1
