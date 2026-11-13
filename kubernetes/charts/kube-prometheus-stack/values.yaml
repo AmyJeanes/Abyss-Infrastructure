@@ -75,13 +75,19 @@ kube-prometheus-stack:
         memory: 300Mi
       limits:
         memory: 300Mi
+    # The microk8s cluster CA has no keyUsage extension, which Python 3.13+ rejects under its
+    # default strict X.509 checks (see AGENTS.md); the chain is still verified against the CA.
     sidecar:
       dashboards:
         enabled: true
         searchNamespace: ALL
+        env:
+          DISABLE_X509_STRICT_VERIFICATION: "true"
       datasources:
         enabled: true
         searchNamespace: ALL
+        env:
+          DISABLE_X509_STRICT_VERIFICATION: "true"
     # Served through the Cloudflare tunnel straight to the service, so no ingress or cert.
     ingress:
       enabled: false
