@@ -42,7 +42,7 @@ jobs:
             postgresql . \
             --namespace default \
             -f values.yaml \
-            --set postgresql.auth.postgresPassword="${{ secrets.POSTGRESQL_POSTGRES_PASSWORD }}"
+            --set auth.postgresPassword="${{ secrets.POSTGRESQL_POSTGRES_PASSWORD }}"
         working-directory: kubernetes/charts/postgresql
 
       - name: Disconnect from Kubernetes

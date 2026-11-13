@@ -1,3 +1,2 @@
-postgresql:
-  auth:
-    postgresPassword: "dummy-postgres-password"
+auth:
+  postgresPassword: "dummy-postgres-password"

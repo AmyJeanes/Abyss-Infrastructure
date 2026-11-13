@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  selector:
+    app: postgresql
+  ports:
+  - name: postgresql
+    protocol: TCP
+    port: 5432
+    targetPort: postgresql
+    nodePort: {{ .Values.nodePort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-metrics
+  labels:
+    app: postgresql
+    component: metrics
+spec:
+  selector:
+    app: postgresql
+  ports:
+  - name: http-metrics
+    protocol: TCP
+    port: 9187
+    targetPort: http-metrics

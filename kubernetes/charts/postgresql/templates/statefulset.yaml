@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql
+spec:
+  replicas: 1
+  serviceName: postgresql
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      automountServiceAccountToken: false
+      # UID/GID 1001 owns the existing volume, so no recursive chown is needed.
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        runAsNonRoot: true
+        fsGroup: 1001
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: postgresql
+        image: {{ .Values.image.repository }}:{{ required "image.tag is required" .Values.image.tag }}
+        env:
+        - name: POSTGRES_PASSWORD_FILE
+          value: /secrets/postgres-password
+        ports:
+        - name: postgresql
+          containerPort: 5432
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command: [pg_isready, -U, postgres, -h, 127.0.0.1, -p, "5432"]
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+        livenessProbe:
+          exec:
+            command: [pg_isready, -U, postgres, -h, 127.0.0.1, -p, "5432"]
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+        resources: {{ toYaml .Values.resources | nindent 10 }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: [ALL]
+        volumeMounts:
+        # The image refuses to start while the volume root still holds the pre-migration Bitnami cluster in data/.
+        - name: data
+          mountPath: /var/lib/postgresql
+          subPath: postgresql
+        - name: secrets
+          mountPath: /secrets
+          readOnly: true
+        - name: run
+          mountPath: /var/run/postgresql
+        - name: tmp
+          mountPath: /tmp
+        - name: shm
+          mountPath: /dev/shm
+      - name: metrics
+        image: {{ .Values.exporter.image.repository }}:{{ required "exporter.image.tag is required" .Values.exporter.image.tag }}
+        env:
+        - name: DATA_SOURCE_URI
+          value: 127.0.0.1:5432/postgres?sslmode=disable
+        - name: DATA_SOURCE_USER
+          value: postgres
+        - name: DATA_SOURCE_PASS_FILE
+          value: /secrets/postgres-password
+        ports:
+        - name: http-metrics
+          containerPort: 9187
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http-metrics
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http-metrics
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 6
+        resources: {{ toYaml .Values.exporter.resources | nindent 10 }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: [ALL]
+        volumeMounts:
+        - name: secrets
+          mountPath: /secrets
+          readOnly: true
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: postgresql
+      - name: secrets
+        secret:
+          secretName: postgresql
+          defaultMode: 0440
+      - name: run
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+      - name: shm
+        emptyDir:
+          medium: Memory
