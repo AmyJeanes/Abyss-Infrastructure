@@ -42,8 +42,8 @@ jobs:
             influxdb . \
             --namespace default \
             -f values.yaml \
-            --set influxdb.auth.admin.password="${{ secrets.INFLUXDB_ADMIN_PASSWORD }}" \
-            --set influxdb.auth.admin.token="${{ secrets.INFLUXDB_ADMIN_TOKEN }}"
+            --set auth.adminPassword="${{ secrets.INFLUXDB_ADMIN_PASSWORD }}" \
+            --set auth.adminToken="${{ secrets.INFLUXDB_ADMIN_TOKEN }}"
         working-directory: kubernetes/charts/influxdb
 
       - name: Disconnect from Kubernetes

@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      automountServiceAccountToken: false
+      # UID/GID 1001 owns the existing volume, so no recursive chown is needed.
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        runAsNonRoot: true
+        fsGroup: 1001
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: influxdb
+        image: {{ .Values.image.repository }}:{{ required "image.tag is required" .Values.image.tag }}
+        env:
+        - name: DOCKER_INFLUXDB_INIT_MODE
+          value: setup
+        - name: DOCKER_INFLUXDB_INIT_USERNAME
+          value: {{ .Values.setup.username | quote }}
+        - name: DOCKER_INFLUXDB_INIT_ORG
+          value: {{ .Values.setup.organization | quote }}
+        - name: DOCKER_INFLUXDB_INIT_BUCKET
+          value: {{ .Values.setup.bucket | quote }}
+        - name: DOCKER_INFLUXDB_INIT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: influxdb
+              key: admin-password
+        - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: influxdb
+              key: admin-token
+        ports:
+        - name: http
+          containerPort: 8086
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 6
+        resources: {{ toYaml .Values.resources | nindent 10 }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: [ALL]
+        volumeMounts:
+        # influxd's default paths would collide with the pre-migration Bitnami files at the volume root.
+        - name: data
+          mountPath: /var/lib/influxdb2
+          subPath: influxdb2
+        - name: config
+          mountPath: /etc/influxdb2
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: influxdb
+      - name: config
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}

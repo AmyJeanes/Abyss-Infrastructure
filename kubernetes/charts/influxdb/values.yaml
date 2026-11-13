@@ -1,23 +1,19 @@
-influxdb:
-  metrics:
-    enabled: true
-    serviceMonitor:
-      enabled: true
-      namespace: monitoring
-  influxdb:
-    service:
-      type: NodePort
-      externalTrafficPolicy: Local
-      nodePorts:
-        http: 30000
-        rpc: 30001
-    updateStrategy:
-      type: Recreate
-    resources:
-      requests:
-        cpu: 10m
-        memory: 500Mi
-      limits:
-        memory: 500Mi
-  persistence:
-    existingClaim: influxdb
+# Stay on InfluxDB 2.x: 3.x is a different product with no in-place upgrade.
+image:
+  repository: influxdb
+  tag: 2.7.12@sha256:b8d940ca9376f85118260f5b6bd236b8a00b1749c3350c5578d4cde8e27f31f2
+# Only used to initialise an empty volume.
+setup:
+  username: admin
+  organization: primary
+  bucket: primary
+auth:
+  adminPassword: "" # set in CLI
+  adminToken: "" # set in CLI
+nodePort: 30000
+resources:
+  requests:
+    cpu: 10m
+    memory: 500Mi
+  limits:
+    memory: 500Mi
