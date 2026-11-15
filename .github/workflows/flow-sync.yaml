@@ -1,0 +1,56 @@
+name: Flow sync
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [main]
+    paths:
+      - 'kubernetes/charts/flow-sync/**'
+      - 'kubernetes/charts/local-persistentvolume/**'
+      - '.github/workflows/flow-sync.yaml'
+
+jobs:
+  deploy-flow-sync:
+    name: Deploy Flow sync
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Connect to Kubernetes
+        uses: ./.github/actions/connect-k8s
+        with:
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
+          hostname: kubernetes-api.${{ vars.HOST }}
+          serviceTokenId: ${{ vars.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_ID }}
+          serviceTokenSecret: ${{ secrets.CLOUDFLARE_TUNNEL_SERVICE_TOKEN_SECRET }}
+
+      - name: Install persistent volume for Flow sync
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            flow-sync-persistentvolume . \
+            --namespace default \
+            --set name=flow-sync \
+            --set disk.capacity=3Gi
+        working-directory: kubernetes/charts/local-persistentvolume
+
+      - name: Install Flow sync
+        env:
+          ADMIN_TOKEN: ${{ secrets.FLOW_SYNC_ADMIN_TOKEN }}
+        run: |
+          helm upgrade --install --wait --atomic --debug \
+            flow-sync . \
+            --namespace default \
+            --set ingress.host="flow-sync.${{ vars.HOST }}" \
+            --set-string adminToken="$ADMIN_TOKEN"
+        working-directory: kubernetes/charts/flow-sync
+
+      - name: Wait for Flow sync certificate to be ready
+        uses: ./.github/actions/wait-kube-certificate
+        with:
+          name: "flow-sync-tls"
+
+      - name: Disconnect from Kubernetes
+        if: always()
+        uses: ./.github/actions/disconnect-k8s

@@ -101,6 +101,12 @@ jobs:
     uses: ./.github/workflows/ntfy.yaml
     secrets: inherit
 
+  flow-sync:
+    name: Deploy Flow sync
+    needs: ingress-certificates
+    uses: ./.github/workflows/flow-sync.yaml
+    secrets: inherit
+
   stirling-pdf:
     name: Deploy Stirling-PDF
     needs: ingress-certificates

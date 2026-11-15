@@ -36,6 +36,7 @@ apps:
   - abyss-models
   - gptapi-models
   - website-cdn
+  - flow-sync
 
 resources:
   requests:

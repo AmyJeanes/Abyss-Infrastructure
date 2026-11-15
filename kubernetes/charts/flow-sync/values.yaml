@@ -1,0 +1,14 @@
+image:
+  repository: ghcr.io/flow-tube/flow-sync
+  tag: 0.1.0-beta@sha256:e84b6461a692f47b80dc37cf43ab1891b45c3d9bf4239f0a0f2abd56087cf67b
+ingress: {}
+# Claims the instance from Flow and answers join requests; 32+ characters, injected by the pipeline.
+adminToken: ""
+# Objects are up to 4 MiB each.
+maxSize: 8m
+resources:
+  requests:
+    cpu: 10m
+    memory: 512Mi
+  limits:
+    memory: 512Mi

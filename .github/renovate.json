@@ -41,6 +41,13 @@
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor"],
       "automerge": false
+    },
+    {
+      "description": "flow-sync tags its betas X.Y.Z-beta. Docker versioning treats -beta as a variant and would never offer the stable release or another suffix, so use semver with unstable versions allowed.",
+      "matchPackageNames": ["ghcr.io/flow-tube/flow-sync"],
+      "matchDatasources": ["docker"],
+      "versioning": "semver",
+      "ignoreUnstable": false
     }
   ]
 }

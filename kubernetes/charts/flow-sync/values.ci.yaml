@@ -1,0 +1,3 @@
+ingress:
+  host: "flow-sync.example.com"
+adminToken: "dummydummydummydummydummydummydummy"
