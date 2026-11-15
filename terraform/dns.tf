@@ -16,7 +16,8 @@ locals {
     "snapmaker",
     "plex",
     "outlookcalproxy",
-    "spoolman"
+    "spoolman",
+    "flow-sync"
   ]
   proxied_records = {
     "cdn" = true,
