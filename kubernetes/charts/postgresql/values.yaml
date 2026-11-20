@@ -2,7 +2,7 @@
 # volume holds a cluster from another major. Dump and restore (or pg_upgrade) is required.
 image:
   repository: postgres
-  tag: 18.7@sha256:e754b839f447639b7004895f4d8a4bfcb4e9dbe3a1bc035f27f646562a16fd61
+  tag: 18.7@sha256:eb63372c1e05c755f55fa30cbd07aecc443676fc6c0fa90b9002d01537841e1a
 auth:
   postgresPassword: "" # set in CLI
 nodePort: 30002
