@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/amyjeanes/plex-vaapi
-  tag: latest@sha256:d8d72377f3d0f5b5c7af7510be0ad6ffd1ebfd00b0012b727d91a0ecb081c158
+  tag: latest@sha256:5b23951c46a22415659539fce84d9897263b7e05ef26192dad81e3c1fdda4660
   pullPolicy: IfNotPresent
 initContainer:
   image:
